@@ -26,7 +26,7 @@
   </div>
   <div class="ctx-tools">
     <label for="saved" style="font-size: 13px; color: var(--dd-secondary)">Saved booking</label>
-    <select id="saved" class="sel" style="width: 260px; height: 36px">
+    <select id="saved" class="sel" style="width: 240px; height: 36px">
       <option>Load a saved booking…</option>
       <option>Weekly lab run – Mon/Wed/Fri</option>
       <option>Head office → Warehouse</option>
@@ -41,193 +41,228 @@
 
     <form class="form" onsubmit="return false">
 
-      <!-- PICK UP -->
+      <!-- ROUTE: pick up and deliver to, side by side, collapsed until clicked -->
       <section class="card">
-        <div class="row-between"><h2 class="h">Pick up from</h2><span class="hint">Prefilled with your account address</span></div>
-        <div class="field">
-          <label class="lbl req" for="from">Address</label>
-          <div class="with-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input id="from" class="in" value="12 Carbine Road, Mount Wellington, Auckland 1060">
+        <div class="row-between"><h2 class="h">Route</h2><span class="hint">Click an address to change it or add contact details</span></div>
+        <div class="route-grid">
+
+          <!-- PICK UP -->
+          <div class="addr" id="a-from">
+            <button type="button" class="addr-line" data-open="a-from" aria-expanded="false">
+              <span class="pin from"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+              <span class="txt">
+                <span class="addr-k">Pick up</span>
+                <span class="addr-main" id="from-main">12 Carbine Road, Mount Wellington 1060</span>
+                <span class="addr-sub" id="from-sub">Acme Distribution Ltd · Jane Patel · your account address</span>
+              </span>
+              <span class="edit">Edit</span>
+            </button>
+            <div class="addr-form hidden">
+              <div class="field">
+                <label class="lbl req" for="from">Address</label>
+                <div class="with-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input id="from" class="in" value="12 Carbine Road, Mount Wellington, Auckland 1060"></div>
+                <span class="hint">Searches Google and your address book together</span>
+              </div>
+              <div class="two">
+                <div class="field"><label class="lbl" for="fromco">Company</label><input id="fromco" class="in" value="Acme Distribution Ltd"></div>
+                <div class="field"><label class="lbl" for="fromx">Unit, floor or building</label><input id="fromx" class="in" placeholder="e.g. Level 2, Dock B"></div>
+              </div>
+              <div class="two">
+                <div class="field"><label class="lbl req" for="fromc">Contact name</label><input id="fromc" class="in" value="Jane Patel"></div>
+                <div class="field"><label class="lbl" for="fromp">Contact phone</label><input id="fromp" class="in" placeholder="021 000 0000"></div>
+              </div>
+              <div class="field"><label class="lbl" for="fromn">Notes for the driver</label><input id="fromn" class="in" placeholder="Where to find the parcel, gate codes…"></div>
+              <div style="display: flex; justify-content: flex-end"><button type="button" class="ghost" data-close="a-from">Done</button></div>
+            </div>
           </div>
-          <div style="display: flex; align-items: center; gap: 8px; margin-top: 2px; flex-wrap: wrap">
-            <span class="hint">Company:</span><span style="font-size: 12px; font-weight: 600">Acme Distribution Ltd</span><a href="#" style="font-size: 12px; font-weight: 600">Edit</a>
-            <span class="hint" style="margin-left: auto">Searches Google and your address book together</span>
+
+          <button type="button" class="icn" aria-label="Swap pick up and deliver to" title="Swap addresses"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></button>
+
+          <!-- DELIVER TO -->
+          <div class="addr" id="a-to">
+            <button type="button" class="addr-line" data-open="a-to" aria-expanded="false">
+              <span class="pin to"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+              <span class="txt">
+                <span class="addr-k">Deliver to</span>
+                <span class="addr-main" id="to-main">Auckland City Hospital, 2 Park Road, Grafton 1023</span>
+                <span class="addr-sub" id="to-sub">Level 4, Pathology reception · Signature required · from your address book</span>
+              </span>
+              <span class="edit">Edit</span>
+            </button>
+            <div class="addr-form hidden">
+              <div class="field">
+                <label class="lbl req" for="to">Address</label>
+                <div class="with-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input id="to" class="in" value="Auckland City Hospital, 2 Park Road, Grafton 1023"></div>
+                <span class="tag" style="align-self: flex-start">ADDRESS BOOK · ACH-01</span>
+              </div>
+              <div class="two">
+                <div class="field"><label class="lbl" for="toco">Company</label><input id="toco" class="in" value="Auckland City Hospital"></div>
+                <div class="field"><label class="lbl" for="tox">Unit, floor or building</label><input id="tox" class="in" value="Level 4, Pathology reception"></div>
+              </div>
+              <div class="two">
+                <div class="field"><label class="lbl" for="toc">Contact name</label><input id="toc" class="in" placeholder="Who receives it"></div>
+                <div class="field"><label class="lbl" for="top">Contact phone</label><input id="top" class="in" placeholder="09 000 0000"></div>
+              </div>
+              <div class="two">
+                <div class="field">
+                  <label class="lbl" for="leave">If no one can sign</label>
+                  <select id="leave" class="sel"><option>Signature required</option><option>Leave in letter box</option><option>Leave at front door</option><option>Leave at back door</option><option>Leave in a safe place</option><option value="other">Other – say where in delivery notes</option></select>
+                </div>
+                <div class="field"><label class="lbl" id="ton-l" for="ton">Delivery notes for the driver</label><input id="ton" class="in" placeholder="Ward, desk, who to ask for…"></div>
+              </div>
+              <div style="display: flex; justify-content: flex-end"><button type="button" class="ghost" data-close="a-to">Done</button></div>
+            </div>
           </div>
-        </div>
-        <div class="two">
-          <div class="field"><label class="lbl" for="fromx">Unit, floor or building</label><input id="fromx" class="in" placeholder="e.g. Level 2, Dock B"></div>
-          <div class="field"><label class="lbl req" for="fromc">Contact name</label><input id="fromc" class="in" value="Jane Patel"></div>
-        </div>
-        <div class="two">
-          <div class="field"><label class="lbl" for="fromp">Contact phone</label><input id="fromp" class="in" placeholder="021 000 0000"></div>
-          <div class="field"><label class="lbl" for="fromn">Notes for the driver</label><input id="fromn" class="in" placeholder="Where to find the parcel, gate codes…"></div>
         </div>
       </section>
 
-      <div class="swap">
-        <div class="line"></div>
-        <button type="button" class="icn" aria-label="Swap pick up and deliver to" title="Swap addresses"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></button>
-        <div class="line"></div>
+      <div class="pair">
+        <!-- PACKAGE: the common case is one row; dimensions, DG and truck disclose on demand -->
+        <section class="card">
+          <h2 class="h">Package</h2>
+          <div class="field">
+            <span class="lbl req">Vehicle</span>
+            <div class="chips" id="vehicles"><button type="button" class="chip">Bike</button><button type="button" class="chip">Car</button><button type="button" class="chip">Cargo bike</button><button type="button" class="chip on">Van</button><button type="button" class="chip">Transit</button><button type="button" class="chip">Truck</button><button type="button" class="chip">Chilled truck</button></div>
+          </div>
+
+          <div id="std" class="pkg-row">
+            <div class="field">
+              <label class="lbl req" for="size">Package size</label>
+              <select id="size" class="sel"><option>Satchel · 40 × 30 × 5 cm · 1 kg</option><option selected>Banana box · 50 × 40 × 25 cm · 10 kg</option><option>Tyre · 70 × 70 × 25 cm · 12 kg</option><option>Pallet · 120 × 100 × 150 cm · 400 kg</option></select>
+            </div>
+            <div class="field"><span class="lbl">Quantity</span><div class="step"><button type="button" aria-label="Fewer" id="qdn">−</button><span id="qty">2</span><button type="button" aria-label="More" id="qup">+</button></div></div>
+            <div class="field"><label class="lbl" for="wt">Total weight</label><div class="suffix"><input id="wt" class="in" value="20" style="padding-right: 40px"><span>kg</span></div></div>
+          </div>
+
+          <div id="cus" class="hidden" style="display: flex; flex-direction: column; gap: 10px">
+            <div style="overflow-x: auto">
+              <div style="min-width: 600px; display: flex; flex-direction: column; gap: 8px">
+                <div style="display: grid; grid-template-columns: 1fr 80px 80px 80px 100px 70px 36px; gap: 8px; padding: 0 4px"><span class="hint">Item</span><span class="hint">L cm</span><span class="hint">W cm</span><span class="hint">H cm</span><span class="hint">Weight kg</span><span class="hint">Qty</span><span></span></div>
+                <div style="display: grid; grid-template-columns: 1fr 80px 80px 80px 100px 70px 36px; gap: 8px; align-items: center">
+                  <select class="sel" aria-label="Item type"><option>Carton</option><option>Chilly bin</option><option>Specimen bag</option><option>Pallet</option></select>
+                  <input class="in" aria-label="Length" value="60"><input class="in" aria-label="Width" value="40"><input class="in" aria-label="Height" value="30"><input class="in" aria-label="Weight" value="8"><input class="in" aria-label="Quantity" value="2">
+                  <button type="button" class="icn" aria-label="Remove item" style="width: 36px; height: 36px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 80px 80px 80px 100px 70px 36px; gap: 8px; align-items: center">
+                  <select class="sel" aria-label="Item type"><option>Chilly bin</option><option>Carton</option></select>
+                  <input class="in" aria-label="Length" value="45"><input class="in" aria-label="Width" value="30"><input class="in" aria-label="Height" value="30"><input class="in" aria-label="Weight" value="5"><input class="in" aria-label="Quantity" value="1">
+                  <button type="button" class="icn" aria-label="Remove item" style="width: 36px; height: 36px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+                </div>
+              </div>
+            </div>
+            <div class="row-between" style="flex-wrap: wrap">
+              <div style="display: flex; gap: 8px"><button type="button" class="ghost">+ Add item</button><button type="button" class="ghost">+ Add a preset size</button></div>
+              <div style="display: flex; align-items: center; gap: 12px"><span class="hint">Dimensions are</span><div class="seg" style="width: 180px" id="dims"><button type="button" class="on">Per item</button><button type="button">Whole job</button></div></div>
+            </div>
+            <div style="font-size: 13px; color: var(--dd-secondary)">Total <strong style="color: var(--dd-ink)">3 items · 21 kg · 0.184 m³</strong></div>
+          </div>
+
+          <div class="pkg-more">
+            <button type="button" class="link" id="mode-toggle">Enter dimensions instead</button>
+            <label class="chk" style="font-size: 13px"><input type="checkbox" id="dg"> Contains dangerous goods</label>
+          </div>
+
+          <div id="dgbox" class="disc hidden">
+            <div class="two">
+              <div class="field">
+                <label class="lbl req" for="dgc">DG class</label>
+                <select id="dgc" class="sel"><option value="">Select a class…</option><option value="1">Class 1 – Explosives</option><option value="2">Class 2 – Gases</option><option value="3">Class 3 – Flammable liquids</option><option value="6">Class 6 – Toxic / infectious</option><option value="8">Class 8 – Corrosives</option><option value="9">Class 9 – Miscellaneous (incl. dry ice)</option></select>
+              </div>
+              <div class="field hidden" id="dry">
+                <label class="lbl req" for="dryw">Dry ice weight</label>
+                <div style="display: flex; gap: 8px"><input id="dryw" class="in" placeholder="0"><select class="sel" style="width: 90px" aria-label="Unit"><option>kg</option><option>lb</option></select></div>
+              </div>
+            </div>
+            <label class="chk"><input type="checkbox"> I have the DG documentation and will attach it to the package</label>
+          </div>
+
+          <div id="truck" class="disc hidden">
+            <span class="lbl">Truck details</span>
+            <div style="display: flex; gap: 20px; flex-wrap: wrap"><label class="chk"><input type="checkbox"> Tail lift at pick up</label><label class="chk"><input type="checkbox"> Tail lift at delivery</label></div>
+            <div style="display: flex; align-items: center; gap: 12px"><span class="lbl req">Delivering to a</span><div class="seg" style="width: 220px" id="dest"><button type="button" class="on">Business</button><button type="button">Residence</button></div></div>
+          </div>
+        </section>
+
+        <!-- WHEN -->
+        <section class="card">
+          <div class="row-between"><h2 class="h">When</h2><span class="hint">Auckland (NZST)</span></div>
+          <div class="seg" id="when"><button type="button" class="on" data-when="now">Ready now</button><button type="button" data-when="sch">Schedule</button><button type="button" data-when="rec">Recurring</button></div>
+
+          <div id="w-now"><span class="hint" style="font-size: 13px">Pick up as soon as possible, deliver as fast as the chosen service allows.</span></div>
+
+          <div id="w-sch" class="hidden" style="display: flex; flex-direction: column; gap: 12px">
+            <div class="two">
+              <div class="field"><label class="lbl req" for="rd">Ready date</label><input id="rd" class="in" type="date" value="2026-09-25"></div>
+              <div class="field"><label class="lbl req" for="rt">Ready time</label><input id="rt" class="in" type="time" value="09:30"></div>
+            </div>
+            <label class="chk" style="font-size: 13px"><input type="checkbox" id="dby"> Set a deliver-by deadline</label>
+            <div id="dbybox" class="two hidden">
+              <div class="field"><label class="lbl req" for="dd">Deliver by date</label><input id="dd" class="in" type="date" value="2026-09-25"></div>
+              <div class="field"><label class="lbl req" for="dt">Deliver by time</label><input id="dt" class="in" type="time" value="14:00"></div>
+            </div>
+          </div>
+
+          <div id="w-rec" class="hidden" style="display: flex; flex-direction: column; gap: 12px">
+            <div class="field"><span class="lbl req">Repeat on</span><div class="chips" id="days"><button type="button" class="chip on">Mon</button><button type="button" class="chip">Tue</button><button type="button" class="chip on">Wed</button><button type="button" class="chip">Thu</button><button type="button" class="chip on">Fri</button><button type="button" class="chip">Sat</button><button type="button" class="chip">Sun</button></div></div>
+            <div class="two">
+              <div class="field"><label class="lbl req" for="rf">Frequency</label><select id="rf" class="sel"><option>Weekly</option><option>Fortnightly</option><option>First of the month</option><option>Last workday of the month</option></select></div>
+              <div class="field"><label class="lbl req" for="rrt">Ready time</label><input id="rrt" class="in" type="time" value="09:30"></div>
+            </div>
+            <div class="two">
+              <div class="field"><label class="lbl" for="rh">On public holidays</label><select id="rh" class="sel"><option>Don't book</option><option>Deliver next day</option><option>Book anyway</option></select></div>
+              <div class="field"><label class="lbl" for="rn">Name this schedule</label><input id="rn" class="in" placeholder="Optional"></div>
+            </div>
+            <span class="hint">Schedules start tomorrow. Book a normal job as well if you need one today.</span>
+          </div>
+
+          <label class="chk" style="font-size: 13px"><input type="checkbox" id="hold"> Put on hold until I mark it ready</label>
+        </section>
       </div>
 
-      <!-- DELIVER TO -->
-      <section class="card">
-        <h2 class="h">Deliver to</h2>
-        <div class="field">
-          <label class="lbl req" for="to">Address</label>
-          <div class="with-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input id="to" class="in" value="Auckland City Hospital, 2 Park Road, Grafton 1023">
+      <!-- TRACKING & REFERENCES: collapsed; the summary line says what is set -->
+      <section class="card" id="more">
+        <button type="button" class="card-toggle" aria-expanded="false" aria-controls="more-body">
+          <h2 class="h">Tracking and references</h2>
+          <span class="sum" id="more-sum">Email and text to the recipient · PO number PO-88213</span>
+          <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="card-body hidden" id="more-body">
+          <div class="field"><span class="lbl">Notify the recipient by</span><div class="chips" id="track"><button type="button" class="chip" data-t="web">Website only</button><button type="button" class="chip" data-t="email">Email</button><button type="button" class="chip" data-t="text">Text</button><button type="button" class="chip on" data-t="both">Email and text</button></div></div>
+          <div class="two">
+            <div class="field" id="t-email"><label class="lbl req" for="te">Tracking email</label><input id="te" class="in" placeholder="name@example.com"></div>
+            <div class="field" id="t-text"><label class="lbl req" for="tm">Tracking mobile</label><input id="tm" class="in" placeholder="021 000 0000"></div>
           </div>
-          <div style="display: flex; align-items: center; gap: 8px; margin-top: 2px; flex-wrap: wrap">
-            <span class="hint">Company:</span><span style="font-size: 12px; font-weight: 600">Auckland City Hospital</span><a href="#" style="font-size: 12px; font-weight: 600">Edit</a>
-            <span class="tag" style="margin-left: auto">ADDRESS BOOK · ACH-01</span>
-          </div>
-        </div>
-        <div class="two">
-          <div class="field"><label class="lbl" for="tox">Unit, floor or building</label><input id="tox" class="in" value="Level 4, Pathology reception"></div>
-          <div class="field"><label class="lbl" for="toc">Contact name</label><input id="toc" class="in" placeholder="Who receives it"></div>
-        </div>
-        <div class="two">
-          <div class="field"><label class="lbl" for="top">Contact phone</label><input id="top" class="in" placeholder="09 000 0000"></div>
-          <div class="field">
-            <label class="lbl" for="leave">If no one can sign</label>
-            <select id="leave" class="sel">
-              <option>Signature required</option><option>Leave in letter box</option><option>Leave at front door</option><option>Leave at back door</option><option>Leave in a safe place</option><option value="other">Other – say where in delivery notes</option>
-            </select>
-          </div>
-        </div>
-        <div class="field"><label class="lbl" id="ton-l" for="ton">Delivery notes for the driver</label><input id="ton" class="in" placeholder="Ward, desk, who to ask for…"></div>
-      </section>
-
-      <!-- PACKAGE -->
-      <section class="card">
-        <h2 class="h">Package</h2>
-        <div class="field">
-          <span class="lbl req">Vehicle</span>
-          <div class="chips" id="vehicles">
-            <button type="button" class="chip">Bike</button><button type="button" class="chip">Car</button><button type="button" class="chip">Cargo bike</button><button type="button" class="chip on">Van</button><button type="button" class="chip">Transit</button><button type="button" class="chip">Truck</button><button type="button" class="chip">Chilled truck</button>
-          </div>
-        </div>
-        <div style="display: grid; grid-template-columns: 240px 1fr; gap: 16px; align-items: end" class="two">
-          <div class="field"><span class="lbl">Describe it by</span><div class="seg" id="mode"><button type="button" class="on" data-mode="std">Preset size</button><button type="button" data-mode="cus">Dimensions</button></div></div>
-          <span class="hint" style="padding-bottom: 10px">Presets carry their own dimensions and weight. Use Dimensions when nothing fits.</span>
-        </div>
-
-        <div id="std" style="display: grid; grid-template-columns: 1fr 140px 180px; gap: 16px" class="three">
-          <div class="field">
-            <label class="lbl req" for="size">Package size</label>
-            <select id="size" class="sel"><option>Satchel · 40 × 30 × 5 cm · 1 kg</option><option selected>Banana box · 50 × 40 × 25 cm · 10 kg</option><option>Tyre · 70 × 70 × 25 cm · 12 kg</option><option>Pallet · 120 × 100 × 150 cm · 400 kg</option></select>
-          </div>
-          <div class="field"><span class="lbl">Quantity</span><div class="step"><button type="button" aria-label="Fewer" id="qdn">−</button><span id="qty">2</span><button type="button" aria-label="More" id="qup">+</button></div></div>
-          <div class="field"><label class="lbl" for="wt">Total weight</label><div class="suffix"><input id="wt" class="in" value="20" style="padding-right: 40px"><span>kg</span></div></div>
-        </div>
-
-        <div id="cus" class="hidden" style="display: flex; flex-direction: column; gap: 10px">
-          <div style="overflow-x: auto">
-            <div style="min-width: 640px; display: flex; flex-direction: column; gap: 8px">
-              <div style="display: grid; grid-template-columns: 1fr 90px 90px 90px 110px 80px 40px; gap: 8px; padding: 0 4px"><span class="hint">Item</span><span class="hint">L cm</span><span class="hint">W cm</span><span class="hint">H cm</span><span class="hint">Weight kg</span><span class="hint">Qty</span><span></span></div>
-              <div style="display: grid; grid-template-columns: 1fr 90px 90px 90px 110px 80px 40px; gap: 8px; align-items: center">
-                <select class="sel" aria-label="Item type"><option>Carton</option><option>Chilly bin</option><option>Specimen bag</option><option>Pallet</option></select>
-                <input class="in" aria-label="Length" value="60"><input class="in" aria-label="Width" value="40"><input class="in" aria-label="Height" value="30"><input class="in" aria-label="Weight" value="8"><input class="in" aria-label="Quantity" value="2">
-                <button type="button" class="icn" aria-label="Remove item" style="width: 36px; height: 36px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-              </div>
-              <div style="display: grid; grid-template-columns: 1fr 90px 90px 90px 110px 80px 40px; gap: 8px; align-items: center">
-                <select class="sel" aria-label="Item type"><option>Chilly bin</option><option>Carton</option></select>
-                <input class="in" aria-label="Length" value="45"><input class="in" aria-label="Width" value="30"><input class="in" aria-label="Height" value="30"><input class="in" aria-label="Weight" value="5"><input class="in" aria-label="Quantity" value="1">
-                <button type="button" class="icn" aria-label="Remove item" style="width: 36px; height: 36px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-              </div>
-            </div>
-          </div>
-          <div class="row-between" style="flex-wrap: wrap">
-            <div style="display: flex; gap: 8px"><button type="button" class="ghost">+ Add item</button><button type="button" class="ghost">+ Add a preset size</button></div>
-            <div style="display: flex; align-items: center; gap: 12px"><span class="hint">Dimensions are</span><div class="seg" style="width: 180px" id="dims"><button type="button" class="on">Per item</button><button type="button">Whole job</button></div></div>
-          </div>
-          <div style="font-size: 13px; color: var(--dd-secondary)">Total <strong style="color: var(--dd-ink)">3 items · 21 kg · 0.184 m³</strong></div>
-        </div>
-
-        <div class="divider"></div>
-        <label class="chk"><input type="checkbox" id="dg"> Contains dangerous goods</label>
-        <div id="dgbox" class="disc hidden">
+          <div class="divider"></div>
           <div class="two">
             <div class="field">
-              <label class="lbl req" for="dgc">DG class</label>
-              <select id="dgc" class="sel"><option value="">Select a class…</option><option value="1">Class 1 – Explosives</option><option value="2">Class 2 – Gases</option><option value="3">Class 3 – Flammable liquids</option><option value="6">Class 6 – Toxic / infectious</option><option value="8">Class 8 – Corrosives</option><option value="9">Class 9 – Miscellaneous (incl. dry ice)</option></select>
+              <div class="row-between"><label class="lbl req" for="ra">PO number</label><a href="#" style="font-size: 12px; font-weight: 600">Manage list</a></div>
+              <select id="ra" class="sel"><option>Select…</option><option selected>PO-88213</option><option>PO-88240</option></select>
+              <span class="hint">Shown on your invoice. Your account calls this "PO number".</span>
             </div>
-            <div class="field hidden" id="dry">
-              <label class="lbl req" for="dryw">Dry ice weight</label>
-              <div style="display: flex; gap: 8px"><input id="dryw" class="in" placeholder="0"><select class="sel" style="width: 90px" aria-label="Unit"><option>kg</option><option>lb</option></select></div>
-            </div>
+            <div class="field"><label class="lbl" for="rb">Cost centre</label><input id="rb" class="in" placeholder="Optional"></div>
           </div>
-          <label class="chk"><input type="checkbox"> I have the DG documentation and will attach it to the package</label>
-          <span class="hint">Dangerous goods cannot be sent without documentation.</span>
+          <div class="field"><label class="lbl" for="cn">Notes for your own records</label><textarea id="cn" class="ta" placeholder="Only you see these. Not sent to the driver."></textarea></div>
         </div>
-
-        <div id="truck" class="disc hidden">
-          <span class="lbl">Truck details</span>
-          <div style="display: flex; gap: 24px; flex-wrap: wrap"><label class="chk"><input type="checkbox"> Tail lift needed at pick up</label><label class="chk"><input type="checkbox"> Tail lift needed at delivery</label></div>
-          <div style="display: flex; align-items: center; gap: 12px"><span class="lbl req">Delivering to a</span><div class="seg" style="width: 220px" id="dest"><button type="button" class="on">Business</button><button type="button">Residence</button></div></div>
-        </div>
-      </section>
-
-      <!-- WHEN -->
-      <section class="card">
-        <div class="row-between"><h2 class="h">When</h2><span class="hint">Times are Auckland (NZST)</span></div>
-        <div class="seg" style="max-width: 420px" id="when"><button type="button" class="on" data-when="now">Ready now</button><button type="button" data-when="sch">Schedule</button><button type="button" data-when="rec">Recurring</button></div>
-
-        <div id="w-now"><span style="font-size: 14px">Pick up as soon as possible, deliver as fast as the chosen service allows.</span></div>
-
-        <div id="w-sch" class="hidden" style="display: flex; flex-direction: column; gap: 16px">
-          <div class="three">
-            <div class="field"><label class="lbl req" for="rd">Ready date</label><input id="rd" class="in" type="date" value="2026-09-25"></div>
-            <div class="field"><label class="lbl req" for="rt">Ready time</label><input id="rt" class="in" type="time" value="09:30"></div>
-            <span class="hint" style="padding-bottom: 12px">Up to 30 days ahead.</span>
-          </div>
-          <label class="chk"><input type="checkbox" id="dby"> Set a deliver-by deadline</label>
-          <div id="dbybox" class="three hidden">
-            <div class="field"><label class="lbl req" for="dd">Deliver by date</label><input id="dd" class="in" type="date" value="2026-09-25"></div>
-            <div class="field"><label class="lbl req" for="dt">Deliver by time</label><input id="dt" class="in" type="time" value="14:00"></div>
-          </div>
-        </div>
-
-        <div id="w-rec" class="hidden" style="display: flex; flex-direction: column; gap: 16px">
-          <div class="field"><span class="lbl req">Repeat on</span><div class="chips" id="days"><button type="button" class="chip on">Mon</button><button type="button" class="chip">Tue</button><button type="button" class="chip on">Wed</button><button type="button" class="chip">Thu</button><button type="button" class="chip on">Fri</button><button type="button" class="chip">Sat</button><button type="button" class="chip">Sun</button></div></div>
-          <div class="three" style="align-items: start">
-            <div class="field"><label class="lbl req" for="rf">Frequency</label><select id="rf" class="sel"><option>Weekly</option><option>Fortnightly</option><option>First of the month</option><option>Last workday of the month</option></select></div>
-            <div class="field"><label class="lbl req" for="rrt">Ready time</label><input id="rrt" class="in" type="time" value="09:30"></div>
-            <div class="field"><label class="lbl" for="rh">On public holidays</label><select id="rh" class="sel"><option>Don't book</option><option>Deliver next day</option><option>Book anyway</option></select></div>
-          </div>
-          <div class="field"><label class="lbl" for="rn">Name this schedule</label><input id="rn" class="in" placeholder="Optional – helps you find it in the job list"></div>
-          <span class="hint">Recurring schedules start tomorrow. Book a normal job as well if you need one today.</span>
-        </div>
-
-        <label class="chk"><input type="checkbox" id="hold"> Put on hold – nothing moves until you mark it ready in the job list</label>
-      </section>
-
-      <!-- TRACKING & REFERENCES -->
-      <section class="card">
-        <h2 class="h">Tracking and references</h2>
-        <div class="field"><span class="lbl">Notify the recipient by</span><div class="chips" id="track"><button type="button" class="chip" data-t="web">Website only</button><button type="button" class="chip" data-t="email">Email</button><button type="button" class="chip" data-t="text">Text</button><button type="button" class="chip on" data-t="both">Email and text</button></div></div>
-        <div class="two">
-          <div class="field" id="t-email"><label class="lbl req" for="te">Tracking email</label><input id="te" class="in" placeholder="name@example.com"></div>
-          <div class="field" id="t-text"><label class="lbl req" for="tm">Tracking mobile</label><input id="tm" class="in" placeholder="021 000 0000"></div>
-        </div>
-        <div class="divider"></div>
-        <div class="two">
-          <div class="field">
-            <div class="row-between"><label class="lbl req" for="ra">PO number</label><a href="#" style="font-size: 12px; font-weight: 600">Manage list</a></div>
-            <select id="ra" class="sel"><option>Select…</option><option>PO-88213</option><option>PO-88240</option></select>
-            <span class="hint">Shown on your invoice. Your account calls this "PO number".</span>
-          </div>
-          <div class="field"><label class="lbl" for="rb">Cost centre</label><input id="rb" class="in" placeholder="Optional"></div>
-        </div>
-        <div class="field"><label class="lbl" for="cn">Notes for your own records</label><textarea id="cn" class="ta" placeholder="Only you see these. Not sent to the driver."></textarea></div>
       </section>
     </form>
 
     <!-- RIGHT RAIL -->
     <aside class="rail">
+      <!-- the customer's other tools, one glance, no clutter -->
+      <section class="card" id="active" style="gap: 10px">
+        <button type="button" class="card-toggle" aria-expanded="false" aria-controls="active-body">
+          <h2 class="h" style="font-size: 15px">Active jobs</h2>
+          <span class="sum">3 open · 1 out for delivery</span>
+          <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="card-body hidden jobs" id="active-body" style="gap: 8px">
+          <a href="#" class="job" style="color: inherit"><span class="dot go"></span><span><strong>UC 418 190</strong> · Penrose → Grafton</span><span class="st">Out for delivery</span></a>
+          <a href="#" class="job" style="color: inherit"><span class="dot wait"></span><span><strong>UC 418 204</strong> · Mt Wellington → Albany</span><span class="st">Driver assigned</span></a>
+          <a href="#" class="job" style="color: inherit"><span class="dot done"></span><span><strong>UC 418 211</strong> · Mt Wellington → Wiri</span><span class="st">On hold</span></a>
+          <a href="#" style="font-size: 13px; font-weight: 600">Open the job list</a>
+        </div>
+      </section>
+
       <div class="card mapcard">
         <svg viewBox="0 0 458 200" xmlns="http://www.w3.org/2000/svg">
           <g stroke="#e6e4e9" stroke-width="1"><line x1="0" y1="50" x2="458" y2="50"/><line x1="0" y1="100" x2="458" y2="100"/><line x1="0" y1="150" x2="458" y2="150"/><line x1="80" y1="0" x2="80" y2="200"/><line x1="180" y1="0" x2="180" y2="200"/><line x1="280" y1="0" x2="280" y2="200"/><line x1="380" y1="0" x2="380" y2="200"/></g>
@@ -261,56 +296,32 @@
           </button>
         </div>
 
-        <div class="extras">
-          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13px; font-weight: 700">Extras</span><span class="hint" id="xsummary">Fuel adjustment, residential delivery · $7.28</span></div>
-          <a href="#extras" id="open-extras" style="font-size: 13px; font-weight: 600">Edit</a>
+        <!-- extras travel with the selected service: this block is moved under whichever service is chosen -->
+        <div class="svc-x" id="xrows">
+          <span class="k">Extras for <span id="xsvc">Urgent Today</span></span>
+          <label class="xr on"><input type="checkbox" checked disabled data-amt="0.78" data-name="Fuel adjustment"><span class="nm">Fuel adjustment <span class="badge" style="background: var(--dd-outline-variant); color: #413f47">ALWAYS</span></span><span class="amt">$0.78</span></label>
+          <label class="xr on"><input type="checkbox" checked data-amt="6.50" data-name="Residential delivery"><span class="nm">Residential delivery <span class="badge" style="background: var(--dd-primary-container); color: var(--dd-primary-active)">AUTO</span><span class="why">Added because the delivery address is a residence</span></span><span class="amt">$6.50</span></label>
+          <label class="xr"><input type="checkbox" data-amt="24.00" data-name="Two-person lift"><span class="nm">Two-person lift</span><span class="amt">$24.00</span></label>
+          <label class="xr"><input type="checkbox" data-amt="0" data-name="Wait time"><span class="nm">Wait time <input class="mini" value="0" aria-label="Minutes" disabled><span class="hint">min × $1.20, first 10 free</span></span><span class="amt">$0.00</span></label>
+          <label class="xr"><input type="checkbox" data-amt="0" data-name="Hazmat handling"><span class="nm">Hazmat handling <span class="hint">$9.00 per DG package</span></span><span class="amt">$0.00</span></label>
+          <div class="xr quiet"><span></span><span class="nm">After-hours pickup <span class="hint">needs a quote, ask on live chat</span></span><span class="amt">—</span></div>
         </div>
 
         <div class="totals">
           <div class="l"><span id="selname">Urgent Today</span><span id="base">$18.50</span></div>
           <div class="l"><span>Extras</span><span id="xline">$7.28</span></div>
-          <div class="l"><span>GST 15%</span><span id="gst">$3.75</span></div>
-          <div class="t"><span>Total</span><span id="total">$28.75</span></div>
+          <div class="l"><span>GST 15%</span><span id="gst">$3.87</span></div>
+          <div class="t"><span>Total</span><span id="total">$29.65</span></div>
         </div>
 
-        <a href="booked.html" class="cta">Book job · <span id="ctatotal">$28.75</span></a>
+        <a href="booked.html" class="cta">Book job · <span id="ctatotal">$29.65</span></a>
         <span class="hint" style="text-align: center">Nothing is booked until you press Book job. Missing details are pointed out beside the field.</span>
       </div>
     </aside>
   </div>
 </main>
 
-<!-- EXTRAS SIDE SHEET (opens over the form) -->
-<div class="backdrop hidden" id="xback"></div>
-<aside class="sheet hidden" id="xsheet" role="dialog" aria-labelledby="sheet-title">
-  <div class="sheet-head">
-    <div style="display: flex; flex-direction: column; gap: 4px">
-      <h2 id="sheet-title" style="margin: 0; font-size: 22px; font-weight: 800">Extras for <span id="xsvc">Urgent Today</span></h2>
-      <span style="font-size: 13px; color: var(--dd-text-2)">Some are added automatically from the job details. Untick anything you don't need.</span>
-    </div>
-    <button type="button" aria-label="Close" class="icn" id="xclose"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-  </div>
-  <div class="sheet-tabs" id="xtabs"><button type="button" class="tab on">All legs</button><button type="button" class="tab">Pickup agent</button><button type="button" class="tab">Flight</button><button type="button" class="tab">Delivery agent</button></div>
-  <div class="sheet-body" id="xrows">
-    <label class="xrow on"><input type="checkbox" checked disabled data-amt="0.78" data-name="Fuel adjustment"><div><div style="font-size: 14px; font-weight: 700">Fuel adjustment<span class="badge" style="background: var(--dd-outline-variant); color: #413f47">ALWAYS</span></div><div class="hint">Applied to every job on this service. 4.2% of the base rate.</div></div><span class="hint calc" style="padding-top: 3px">4.2% of the base rate</span><span class="amt">$0.78</span></label>
-    <label class="xrow on"><input type="checkbox" checked data-amt="6.50" data-name="Residential delivery"><div><div style="font-size: 14px; font-weight: 700">Residential delivery<span class="badge" style="background: var(--dd-primary-container); color: var(--dd-primary-active)">AUTO</span></div><div class="hint">Added because the delivery address is a residence.</div></div><span class="hint calc" style="padding-top: 3px">Flat fee</span><span class="amt">$6.50</span></label>
-    <label class="xrow"><input type="checkbox" data-amt="0" data-name="Wait time"><div><div style="font-size: 14px; font-weight: 700">Wait time</div><div class="hint">First 10 minutes free, then per minute.</div></div><span class="calc" style="display: flex; align-items: center; gap: 6px"><input class="mini" value="0" aria-label="Minutes" disabled><span class="hint">min × $1.20</span></span><span class="amt">$0.00</span></label>
-    <label class="xrow"><input type="checkbox" data-amt="24.00" data-name="Two-person lift"><div><div style="font-size: 14px; font-weight: 700">Two-person lift</div><div class="hint">For items over 25 kg or awkward to carry alone.</div></div><span class="hint calc" style="padding-top: 3px">Flat fee</span><span class="amt">$24.00</span></label>
-    <label class="xrow"><input type="checkbox" data-amt="0" data-name="Hazmat handling"><div><div style="font-size: 14px; font-weight: 700">Hazmat handling</div><div class="hint">Per package declared as dangerous goods.</div></div><span class="calc" style="display: flex; align-items: center; gap: 6px"><input class="mini" value="0" aria-label="Packages" disabled><span class="hint">pkg × $9.00</span></span><span class="amt">$0.00</span></label>
-    <label class="xrow" style="opacity: .8; cursor: default"><input type="checkbox" disabled><div><div style="font-size: 14px; font-weight: 700">After-hours pickup</div><div class="hint">Needs a quote. Ask on live chat before booking.</div></div><span class="hint calc" style="padding-top: 3px">Quote required</span><span class="amt">—</span></label>
-  </div>
-  <div class="sheet-foot">
-    <div class="totals" style="border: 0; padding: 0">
-      <div class="l"><span id="xbasename">Urgent Today</span><span id="xbase">$18.50</span></div>
-      <div class="l"><span>Extras (<span id="xn">2</span>)</span><span id="xsum">$7.28</span></div>
-      <div class="l"><span>GST 15%</span><span id="xgst">$3.87</span></div>
-      <div class="t"><span>Total</span><span id="xtotal">$29.65</span></div>
-    </div>
-    <div style="display: flex; gap: 10px; flex-wrap: wrap"><button type="button" class="ghost" style="height: 52px; padding: 0 20px" id="xback2">Back to booking</button><button type="button" class="cta" style="flex: 1; min-width: 160px" id="xdone">Done</button></div>
-  </div>
-</aside>
-
-<nav class="proto" aria-label="Prototype screens"><strong>Prototype</strong><a href="gate.html">Gate</a><a href="index.html" class="on">Booking</a><a href="#extras" id="proto-extras">Extras</a><a href="booked.html">Booked</a><a href="mobile.html">Phone</a></nav>
+<nav class="proto" aria-label="Prototype screens"><strong>Prototype</strong><a href="gate.html">Gate</a><a href="index.html" class="on">Booking</a><a href="booked.html">Booked</a><a href="mobile.html">Phone</a></nav>
 
 <script>
 (function () {
@@ -318,96 +329,100 @@
   const $$ = (s) => Array.from(document.querySelectorAll(s));
   const show = (el, on) => el.classList.toggle('hidden', !on);
 
-  // vehicle chips
+  // ----- route: collapsed address lines that expand into a form -----
+  const summarise = (id) => {
+    if (id === 'a-from') {
+      $('#from-main').textContent = $('#from').value;
+      const bits = [$('#fromco').value, $('#fromx').value, $('#fromc').value].filter(Boolean);
+      $('#from-sub').textContent = bits.join(' · ') || 'Add company, unit and contact';
+    } else {
+      $('#to-main').textContent = $('#to').value;
+      const bits = [$('#toco').value, $('#tox').value, $('#toc').value, $('#leave').value === 'other' ? 'Leave: see notes' : $('#leave').value].filter(Boolean);
+      $('#to-sub').textContent = bits.join(' · ');
+    }
+  };
+  const setAddr = (id, open) => {
+    const box = document.getElementById(id);
+    const line = box.querySelector('.addr-line'), form = box.querySelector('.addr-form');
+    show(line, !open); show(form, open);
+    line.setAttribute('aria-expanded', open);
+    if (open) { const first = form.querySelector('input'); if (first) first.focus(); } else summarise(id);
+  };
+  $$('[data-open]').forEach((b) => b.addEventListener('click', () => setAddr(b.dataset.open, true)));
+  $$('[data-close]').forEach((b) => b.addEventListener('click', () => setAddr(b.dataset.close, false)));
+  $('#leave').addEventListener('change', (e) => $('#ton-l').classList.toggle('req', e.target.value === 'other'));
+
+  // ----- collapsible cards (tracking & references, active jobs) -----
+  $$('.card-toggle').forEach((t) => t.addEventListener('click', () => {
+    const card = t.closest('.card'), body = document.getElementById(t.getAttribute('aria-controls'));
+    const open = body.classList.contains('hidden');
+    show(body, open); card.classList.toggle('open', open); t.setAttribute('aria-expanded', open);
+  }));
+
+  // ----- package -----
   $$('#vehicles .chip').forEach((b) => b.addEventListener('click', () => {
-    $$('#vehicles .chip').forEach((x) => x.classList.remove('on'));
-    b.classList.add('on');
-    $('#veh').textContent = b.textContent;
-    show($('#truck'), /truck/i.test(b.textContent));
+    $$('#vehicles .chip').forEach((x) => x.classList.remove('on')); b.classList.add('on');
+    $('#veh').textContent = b.textContent; show($('#truck'), /truck/i.test(b.textContent));
   }));
-
-  // preset vs dimensions
-  $$('#mode button').forEach((b) => b.addEventListener('click', () => {
-    $$('#mode button').forEach((x) => x.classList.remove('on'));
-    b.classList.add('on');
-    show($('#std'), b.dataset.mode === 'std');
-    show($('#cus'), b.dataset.mode === 'cus');
-  }));
-  ['#dims', '#dest'].forEach((sel) => $$(sel + ' button').forEach((b) => b.addEventListener('click', () => {
-    $$(sel + ' button').forEach((x) => x.classList.remove('on')); b.classList.add('on');
-  })));
-
-  // quantity
+  let custom = false;
+  $('#mode-toggle').addEventListener('click', () => {
+    custom = !custom; show($('#std'), !custom); show($('#cus'), custom);
+    $('#mode-toggle').textContent = custom ? 'Use a preset size instead' : 'Enter dimensions instead';
+  });
+  ['#dims', '#dest'].forEach((sel) => $$(sel + ' button').forEach((b) => b.addEventListener('click', () => { $$(sel + ' button').forEach((x) => x.classList.remove('on')); b.classList.add('on'); })));
   let qty = 2;
   const setQty = (n) => { qty = Math.max(1, Math.min(999, n)); $('#qty').textContent = qty; $('#wt').value = qty * 10; };
   $('#qup').addEventListener('click', () => setQty(qty + 1));
   $('#qdn').addEventListener('click', () => setQty(qty - 1));
-
-  // dangerous goods
   $('#dg').addEventListener('change', (e) => show($('#dgbox'), e.target.checked));
   $('#dgc').addEventListener('change', (e) => show($('#dry'), e.target.value === '9'));
 
-  // leave parcel → notes required
-  $('#leave').addEventListener('change', (e) => $('#ton-l').classList.toggle('req', e.target.value === 'other'));
-
-  // when
+  // ----- when -----
   $$('#when button').forEach((b) => b.addEventListener('click', () => {
     $$('#when button').forEach((x) => x.classList.remove('on')); b.classList.add('on');
-    show($('#w-now'), b.dataset.when === 'now');
-    show($('#w-sch'), b.dataset.when === 'sch');
-    show($('#w-rec'), b.dataset.when === 'rec');
+    show($('#w-now'), b.dataset.when === 'now'); show($('#w-sch'), b.dataset.when === 'sch'); show($('#w-rec'), b.dataset.when === 'rec');
   }));
   $('#dby').addEventListener('change', (e) => show($('#dbybox'), e.target.checked));
   $$('#days .chip').forEach((b) => b.addEventListener('click', () => b.classList.toggle('on')));
 
-  // tracking
+  // ----- tracking summary -----
+  const trackSummary = () => {
+    const t = $('#track .chip.on').textContent;
+    const po = $('#ra').value === 'Select…' ? 'PO number needed' : 'PO number ' + $('#ra').value;
+    $('#more-sum').textContent = (t === 'Website only' ? 'Tracking on the website' : t + ' to the recipient') + ' · ' + po;
+  };
   $$('#track .chip').forEach((b) => b.addEventListener('click', () => {
     $$('#track .chip').forEach((x) => x.classList.remove('on')); b.classList.add('on');
-    const t = b.dataset.t;
-    show($('#t-email'), t === 'email' || t === 'both');
-    show($('#t-text'), t === 'text' || t === 'both');
+    const t = b.dataset.t; show($('#t-email'), t === 'email' || t === 'both'); show($('#t-text'), t === 'text' || t === 'both'); trackSummary();
   }));
+  $('#ra').addEventListener('change', trackSummary);
 
-  // services, extras sheet and totals (one source of truth)
+  // ----- services with extras inline under the selected one; totals from one source -----
   const money = (n) => '$' + n.toFixed(2);
-  const rows = $$('#xrows .xrow');
+  const xblock = $('#xrows');
+  const rows = $$('#xrows .xr');
   const selected = () => $('#services .svc.on');
   const extrasState = () => {
-    let sum = 0, n = 0, names = [];
+    let sum = 0;
     rows.forEach((r) => {
       const c = r.querySelector('input[type=checkbox]');
-      if (c.dataset.amt === undefined) return;
+      if (!c) return;
       r.classList.toggle('on', c.checked);
-      if (c.checked) { sum += parseFloat(c.dataset.amt); n++; names.push(c.dataset.name); }
+      if (c.checked) sum += parseFloat(c.dataset.amt);
     });
-    return { sum, n, names };
+    return sum;
   };
   const recalc = () => {
-    const b = selected();
-    const base = parseFloat(b.dataset.price);
-    const x = extrasState();
-    const sub = base + x.sum, gst = sub * 0.15;
-    $('#selname').textContent = b.dataset.name; $('#xbasename').textContent = b.dataset.name; $('#xsvc').textContent = b.dataset.name;
-    $('#base').textContent = money(base); $('#xbase').textContent = money(base);
-    $('#xline').textContent = money(x.sum); $('#xsum').textContent = money(x.sum); $('#xn').textContent = x.n;
-    $('#gst').textContent = money(gst); $('#xgst').textContent = money(gst);
-    $('#total').textContent = money(sub + gst); $('#xtotal').textContent = money(sub + gst); $('#ctatotal').textContent = money(sub + gst);
-    const label = x.names.length ? x.names.join(', ').replace(/, ([^,]*)$/, ' and $1') : 'None selected';
-    $('#xsummary').textContent = label.charAt(0).toUpperCase() + label.slice(1).toLowerCase() + ' · ' + money(x.sum);
+    const b = selected(); const base = parseFloat(b.dataset.price); const x = extrasState();
+    const sub = base + x, gst = sub * 0.15;
+    $('#selname').textContent = b.dataset.name; $('#xsvc').textContent = b.dataset.name;
+    $('#base').textContent = money(base); $('#xline').textContent = money(x);
+    $('#gst').textContent = money(gst); $('#total').textContent = money(sub + gst); $('#ctatotal').textContent = money(sub + gst);
   };
-  $$('#services .svc').forEach((b) => b.addEventListener('click', () => {
-    $$('#services .svc').forEach((x) => x.classList.remove('on')); b.classList.add('on'); recalc();
-  }));
-  rows.forEach((r) => r.querySelector('input[type=checkbox]').addEventListener('change', recalc));
-  $$('#xtabs .tab').forEach((t) => t.addEventListener('click', () => { $$('#xtabs .tab').forEach((x) => x.classList.remove('on')); t.classList.add('on'); }));
-
-  const openSheet = () => { show($('#xback'), true); show($('#xsheet'), true); document.body.style.overflow = 'hidden'; };
-  const closeSheet = () => { show($('#xback'), false); show($('#xsheet'), false); document.body.style.overflow = ''; if (location.hash === '#extras') history.replaceState(null, '', location.pathname); };
-  ['#open-extras', '#proto-extras'].forEach((s) => $(s).addEventListener('click', (e) => { e.preventDefault(); openSheet(); }));
-  ['#xclose', '#xback2', '#xdone', '#xback'].forEach((s) => $(s).addEventListener('click', closeSheet));
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSheet(); });
-  if (location.hash === '#extras') openSheet();
-  recalc();
+  const place = () => { const b = selected(); b.insertAdjacentElement('afterend', xblock); };
+  $$('#services .svc').forEach((b) => b.addEventListener('click', () => { $$('#services .svc').forEach((x) => x.classList.remove('on')); b.classList.add('on'); place(); recalc(); }));
+  rows.forEach((r) => { const c = r.querySelector('input[type=checkbox]'); if (c) c.addEventListener('change', recalc); });
+  place(); recalc();
 })();
 </script>
 </body>
