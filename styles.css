@@ -219,3 +219,16 @@ button { font: inherit; }
 .xr.quiet { cursor: default; opacity: .75; }
 .xr .why { font-size: 11px; color: var(--dd-secondary); flex-basis: 100%; }
 .svc-x .mini { height: 28px; width: 56px; font-size: 13px; padding: 0 8px; }
+
+/* breakpoints keyed to the form column's own width, not the window */
+.form { container-type: inline-size; }
+@container (max-width: 760px) {
+  .pair { grid-template-columns: 1fr; }
+}
+@container (max-width: 560px) {
+  .route-grid { grid-template-columns: 1fr; }
+  .route-grid .icn { margin: -4px auto; transform: rotate(90deg); }
+  .pkg-row { grid-template-columns: 1fr 1fr; }
+  .pkg-row .field:first-child { grid-column: 1 / -1; }
+}
+.addr-main { overflow-wrap: anywhere; }
