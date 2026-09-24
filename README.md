@@ -9,7 +9,7 @@ Plain HTML, CSS and a little JavaScript. No build step. Colours, type and radii 
 |---|---|
 | `gate.html` | "Who are you booking for?" — the staff gate, one card |
 | `index.html` | The booking form (desktop). Vehicle, preset/dimensions, dangerous goods, when, tracking and service selection all work |
-| `extras.html` | Accessorial charges as a side sheet |
+| `index.html#extras` | Accessorial charges as a side sheet over the form (`extras.html` redirects here) |
 | `booked.html` | Confirmation with labels, tracking and follow-ups |
 | `mobile.html` | The same form at phone width with a pinned total and Book button |
 

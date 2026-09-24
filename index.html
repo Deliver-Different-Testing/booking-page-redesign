@@ -262,13 +262,13 @@
         </div>
 
         <div class="extras">
-          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13px; font-weight: 700">Extras</span><span class="hint">Residential delivery · $6.50 (added automatically)</span></div>
-          <a href="extras.html" style="font-size: 13px; font-weight: 600">Edit</a>
+          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13px; font-weight: 700">Extras</span><span class="hint" id="xsummary">Fuel adjustment, residential delivery · $7.28</span></div>
+          <a href="#extras" id="open-extras" style="font-size: 13px; font-weight: 600">Edit</a>
         </div>
 
         <div class="totals">
           <div class="l"><span id="selname">Urgent Today</span><span id="base">$18.50</span></div>
-          <div class="l"><span>Extras</span><span>$6.50</span></div>
+          <div class="l"><span>Extras</span><span id="xline">$7.28</span></div>
           <div class="l"><span>GST 15%</span><span id="gst">$3.75</span></div>
           <div class="t"><span>Total</span><span id="total">$28.75</span></div>
         </div>
@@ -280,7 +280,37 @@
   </div>
 </main>
 
-<nav class="proto" aria-label="Prototype screens"><strong>Prototype</strong><a href="gate.html">Gate</a><a href="index.html" class="on">Booking</a><a href="extras.html">Extras</a><a href="booked.html">Booked</a><a href="mobile.html">Phone</a></nav>
+<!-- EXTRAS SIDE SHEET (opens over the form) -->
+<div class="backdrop hidden" id="xback"></div>
+<aside class="sheet hidden" id="xsheet" role="dialog" aria-labelledby="sheet-title">
+  <div class="sheet-head">
+    <div style="display: flex; flex-direction: column; gap: 4px">
+      <h2 id="sheet-title" style="margin: 0; font-size: 22px; font-weight: 800">Extras for <span id="xsvc">Urgent Today</span></h2>
+      <span style="font-size: 13px; color: var(--dd-text-2)">Some are added automatically from the job details. Untick anything you don't need.</span>
+    </div>
+    <button type="button" aria-label="Close" class="icn" id="xclose"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="sheet-tabs" id="xtabs"><button type="button" class="tab on">All legs</button><button type="button" class="tab">Pickup agent</button><button type="button" class="tab">Flight</button><button type="button" class="tab">Delivery agent</button></div>
+  <div class="sheet-body" id="xrows">
+    <label class="xrow on"><input type="checkbox" checked disabled data-amt="0.78" data-name="Fuel adjustment"><div><div style="font-size: 14px; font-weight: 700">Fuel adjustment<span class="badge" style="background: var(--dd-outline-variant); color: #413f47">ALWAYS</span></div><div class="hint">Applied to every job on this service. 4.2% of the base rate.</div></div><span class="hint calc" style="padding-top: 3px">4.2% of the base rate</span><span class="amt">$0.78</span></label>
+    <label class="xrow on"><input type="checkbox" checked data-amt="6.50" data-name="Residential delivery"><div><div style="font-size: 14px; font-weight: 700">Residential delivery<span class="badge" style="background: var(--dd-primary-container); color: var(--dd-primary-active)">AUTO</span></div><div class="hint">Added because the delivery address is a residence.</div></div><span class="hint calc" style="padding-top: 3px">Flat fee</span><span class="amt">$6.50</span></label>
+    <label class="xrow"><input type="checkbox" data-amt="0" data-name="Wait time"><div><div style="font-size: 14px; font-weight: 700">Wait time</div><div class="hint">First 10 minutes free, then per minute.</div></div><span class="calc" style="display: flex; align-items: center; gap: 6px"><input class="mini" value="0" aria-label="Minutes" disabled><span class="hint">min × $1.20</span></span><span class="amt">$0.00</span></label>
+    <label class="xrow"><input type="checkbox" data-amt="24.00" data-name="Two-person lift"><div><div style="font-size: 14px; font-weight: 700">Two-person lift</div><div class="hint">For items over 25 kg or awkward to carry alone.</div></div><span class="hint calc" style="padding-top: 3px">Flat fee</span><span class="amt">$24.00</span></label>
+    <label class="xrow"><input type="checkbox" data-amt="0" data-name="Hazmat handling"><div><div style="font-size: 14px; font-weight: 700">Hazmat handling</div><div class="hint">Per package declared as dangerous goods.</div></div><span class="calc" style="display: flex; align-items: center; gap: 6px"><input class="mini" value="0" aria-label="Packages" disabled><span class="hint">pkg × $9.00</span></span><span class="amt">$0.00</span></label>
+    <label class="xrow" style="opacity: .8; cursor: default"><input type="checkbox" disabled><div><div style="font-size: 14px; font-weight: 700">After-hours pickup</div><div class="hint">Needs a quote. Ask on live chat before booking.</div></div><span class="hint calc" style="padding-top: 3px">Quote required</span><span class="amt">—</span></label>
+  </div>
+  <div class="sheet-foot">
+    <div class="totals" style="border: 0; padding: 0">
+      <div class="l"><span id="xbasename">Urgent Today</span><span id="xbase">$18.50</span></div>
+      <div class="l"><span>Extras (<span id="xn">2</span>)</span><span id="xsum">$7.28</span></div>
+      <div class="l"><span>GST 15%</span><span id="xgst">$3.87</span></div>
+      <div class="t"><span>Total</span><span id="xtotal">$29.65</span></div>
+    </div>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap"><button type="button" class="ghost" style="height: 52px; padding: 0 20px" id="xback2">Back to booking</button><button type="button" class="cta" style="flex: 1; min-width: 160px" id="xdone">Done</button></div>
+  </div>
+</aside>
+
+<nav class="proto" aria-label="Prototype screens"><strong>Prototype</strong><a href="gate.html">Gate</a><a href="index.html" class="on">Booking</a><a href="#extras" id="proto-extras">Extras</a><a href="booked.html">Booked</a><a href="mobile.html">Phone</a></nav>
 
 <script>
 (function () {
@@ -338,19 +368,46 @@
     show($('#t-text'), t === 'text' || t === 'both');
   }));
 
-  // services + totals
-  const extras = 6.5;
+  // services, extras sheet and totals (one source of truth)
   const money = (n) => '$' + n.toFixed(2);
-  $$('#services .svc').forEach((b) => b.addEventListener('click', () => {
-    $$('#services .svc').forEach((x) => x.classList.remove('on')); b.classList.add('on');
+  const rows = $$('#xrows .xrow');
+  const selected = () => $('#services .svc.on');
+  const extrasState = () => {
+    let sum = 0, n = 0, names = [];
+    rows.forEach((r) => {
+      const c = r.querySelector('input[type=checkbox]');
+      if (c.dataset.amt === undefined) return;
+      r.classList.toggle('on', c.checked);
+      if (c.checked) { sum += parseFloat(c.dataset.amt); n++; names.push(c.dataset.name); }
+    });
+    return { sum, n, names };
+  };
+  const recalc = () => {
+    const b = selected();
     const base = parseFloat(b.dataset.price);
-    const sub = base + extras, gst = sub * 0.15;
-    $('#selname').textContent = b.dataset.name;
-    $('#base').textContent = money(base);
-    $('#gst').textContent = money(gst);
-    $('#total').textContent = money(sub + gst);
-    $('#ctatotal').textContent = money(sub + gst);
+    const x = extrasState();
+    const sub = base + x.sum, gst = sub * 0.15;
+    $('#selname').textContent = b.dataset.name; $('#xbasename').textContent = b.dataset.name; $('#xsvc').textContent = b.dataset.name;
+    $('#base').textContent = money(base); $('#xbase').textContent = money(base);
+    $('#xline').textContent = money(x.sum); $('#xsum').textContent = money(x.sum); $('#xn').textContent = x.n;
+    $('#gst').textContent = money(gst); $('#xgst').textContent = money(gst);
+    $('#total').textContent = money(sub + gst); $('#xtotal').textContent = money(sub + gst); $('#ctatotal').textContent = money(sub + gst);
+    const label = x.names.length ? x.names.join(', ').replace(/, ([^,]*)$/, ' and $1') : 'None selected';
+    $('#xsummary').textContent = label.charAt(0).toUpperCase() + label.slice(1).toLowerCase() + ' · ' + money(x.sum);
+  };
+  $$('#services .svc').forEach((b) => b.addEventListener('click', () => {
+    $$('#services .svc').forEach((x) => x.classList.remove('on')); b.classList.add('on'); recalc();
   }));
+  rows.forEach((r) => r.querySelector('input[type=checkbox]').addEventListener('change', recalc));
+  $$('#xtabs .tab').forEach((t) => t.addEventListener('click', () => { $$('#xtabs .tab').forEach((x) => x.classList.remove('on')); t.classList.add('on'); }));
+
+  const openSheet = () => { show($('#xback'), true); show($('#xsheet'), true); document.body.style.overflow = 'hidden'; };
+  const closeSheet = () => { show($('#xback'), false); show($('#xsheet'), false); document.body.style.overflow = ''; if (location.hash === '#extras') history.replaceState(null, '', location.pathname); };
+  ['#open-extras', '#proto-extras'].forEach((s) => $(s).addEventListener('click', (e) => { e.preventDefault(); openSheet(); }));
+  ['#xclose', '#xback2', '#xdone', '#xback'].forEach((s) => $(s).addEventListener('click', closeSheet));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSheet(); });
+  if (location.hash === '#extras') openSheet();
+  recalc();
 })();
 </script>
 </body>

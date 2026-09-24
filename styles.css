@@ -137,3 +137,21 @@ button { font: inherit; }
 .proto strong { margin-right: 8px; font-weight: 700; color: var(--dd-accent); }
 .proto a { color: var(--dd-on-ink); padding: 6px 10px; border-radius: 999px; font-weight: 600; }
 .proto a.on, .proto a:hover { background: rgba(255,255,255,.12); color: #fff; }
+
+/* extras side sheet (lives inside index.html, opened from the rail) */
+.backdrop { position: fixed; inset: 0; background: rgba(13,12,44,.45); z-index: 60; }
+.sheet { position: fixed; top: 0; right: 0; bottom: 0; width: 640px; max-width: 100vw; background: #fff; box-shadow: 0 16px 40px rgba(13,12,44,.16); display: flex; flex-direction: column; z-index: 70; }
+.sheet-head { display: flex; align-items: flex-start; justify-content: space-between; padding: 28px 32px 16px; gap: 16px; }
+.sheet-tabs { display: flex; gap: 8px; padding: 0 32px 16px; flex-wrap: wrap; }
+.sheet-body { flex-grow: 1; overflow: auto; padding: 0 32px; display: flex; flex-direction: column; gap: 8px; }
+.sheet-foot { border-top: 1px solid var(--dd-outline-variant); padding: 20px 32px 28px; display: flex; flex-direction: column; gap: 14px; }
+.xrow { display: grid; grid-template-columns: 28px 1fr 150px 90px; gap: 14px; align-items: start; padding: 14px 12px; border-radius: 12px; border: 1px solid var(--dd-outline-variant); cursor: pointer; }
+.xrow.on { border-color: var(--dd-primary); background: #f7f8ff; }
+.xrow input[type=checkbox] { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--dd-primary); }
+.xrow .amt { font-size: 14px; font-weight: 700; text-align: right; }
+.xrow:not(.on) .amt { font-weight: 400; color: var(--dd-secondary); }
+.badge { font-size: 10px; font-weight: 800; letter-spacing: .04em; border-radius: 999px; padding: 3px 7px; margin-left: 8px; vertical-align: middle; }
+.mini { height: 36px; border: 1px solid var(--dd-outline); border-radius: 8px; padding: 0 10px; font: inherit; font-size: 14px; width: 72px; }
+.tab { height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--dd-outline); background: #fff; font-size: 13px; font-weight: 600; color: var(--dd-ink); cursor: pointer; }
+.tab.on { background: var(--dd-primary-container); border-color: var(--dd-primary); color: var(--dd-primary-active); }
+@media (max-width: 720px) { .xrow { grid-template-columns: 28px 1fr 80px; } .xrow .calc { display: none; } .sheet-head, .sheet-tabs, .sheet-body, .sheet-foot { padding-left: 16px; padding-right: 16px; } }
