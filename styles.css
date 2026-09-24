@@ -232,3 +232,7 @@ button { font: inherit; }
   .pkg-row .field:first-child { grid-column: 1 / -1; }
 }
 .addr-main { overflow-wrap: anywhere; }
+
+/* package size gets its own row so preset names never truncate */
+.pkg-row { grid-template-columns: 1fr 1fr; }
+.pkg-row .field:first-child { grid-column: 1 / -1; }
