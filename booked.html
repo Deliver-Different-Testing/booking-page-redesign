@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Job booked — DFRNT booking redesign</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+.k { font-size: 12px; color: var(--dd-secondary); font-weight: 600; }
+.v { font-size: 14px; font-weight: 600; line-height: 20px; }
+.v small { display: block; font-weight: 500; color: var(--dd-text-2); font-size: 14px; }
+.facts { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 32px; padding-top: 20px; border-top: 1px solid var(--dd-outline-variant); }
+.bk { width: 100%; max-width: 1040px; display: grid; grid-template-columns: 1fr 380px; gap: 32px; align-items: start; }
+@media (max-width: 960px) { .bk { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .facts { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header class="topbar"><div class="brand"><div class="brand-mark"></div><span class="brand-name">DFRNT</span><span class="brand-app">Booking</span></div><nav class="nav"><a href="index.html" class="on">Book a job</a><a href="#">Job list</a><a href="#">Settings</a></nav><a href="#" class="hublink">DFRNT Hub</a></header>
+
+<main class="page" style="padding-top: 48px">
+  <div class="bk">
+    <div class="card" style="padding: 28px; gap: 24px">
+      <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap">
+        <div style="width: 48px; height: 48px; border-radius: 50%; background: #d7f5e6; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0e8f4d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div style="display: flex; flex-direction: column; gap: 2px"><h1 style="margin: 0; font-size: 24px; font-weight: 800; line-height: 30px">Job booked</h1><span style="font-size: 14px; color: var(--dd-text-2)">Urgent Today · picking up as soon as possible</span></div>
+        <div style="margin-left: auto; text-align: right; display: flex; flex-direction: column; gap: 2px"><span class="k">Job number</span><span style="font-size: 26px; font-weight: 800; letter-spacing: .02em">UC 418 227</span></div>
+      </div>
+
+      <div style="display: flex; gap: 10px; flex-wrap: wrap">
+        <a href="#" class="cta" style="width: auto; padding: 0 22px; height: 48px; font-size: 15px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Print 2 labels</a>
+        <select class="sel" aria-label="Label size" style="width: 170px; height: 48px; border-radius: 999px; padding-left: 18px"><option>A4 PDF</option><option>100 × 174 mm</option><option>100 × 150 mm</option></select>
+        <a href="#" class="ghost" style="height: 48px; padding: 0 20px; font-size: 15px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>Track this job</a>
+      </div>
+
+      <div class="note">Attach the labels to the packages before the driver arrives.</div>
+
+      <div class="facts">
+        <div><div class="k">From</div><div class="v">Acme Distribution Ltd<br>12 Carbine Road, Mount Wellington 1060<small>Jane Patel · Dock B</small></div></div>
+        <div><div class="k">To</div><div class="v">Auckland City Hospital<br>2 Park Road, Grafton 1023<small>Level 4, Pathology reception · Signature required</small></div></div>
+        <div><div class="k">Package</div><div class="v">2 × Banana box · 20 kg · Van<small>No dangerous goods</small></div></div>
+        <div><div class="k">Ready</div><div class="v">Now · Thu 24 Sep 2026, 11:20 NZST<small>Recipient notified by email and text</small></div></div>
+        <div><div class="k">References</div><div class="v">PO-88213<small>Cost centre: —</small></div></div>
+        <div><div class="k">Price</div><div class="v">$28.75 incl. GST<small>$18.50 service + $6.50 extras + $3.75 GST</small></div></div>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 16px">
+      <div class="card" style="gap: 12px">
+        <h2 class="h" style="font-size: 16px">What next?</h2>
+        <a href="index.html" class="pri" style="width: 100%">Book another job</a>
+        <a href="index.html" class="ghost" style="width: 100%; height: 48px; font-size: 15px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg>Book the return trip</a>
+        <a href="#" class="ghost" style="width: 100%; height: 48px; font-size: 15px">Save as a template</a>
+        <span class="hint" style="text-align: center">Return trips reuse everything and swap the addresses. Templates keep the details but not the time.</span>
+      </div>
+      <div class="card" style="gap: 8px; background: var(--dd-surface-low)">
+        <span style="font-size: 13px; font-weight: 700">Need to change something?</span>
+        <span style="font-size: 13px; color: var(--dd-text-2); line-height: 18px">Open the job in the <a href="#">job list</a> to put it on hold, edit references, or cancel it before pickup.</span>
+      </div>
+    </div>
+  </div>
+</main>
+
+<nav class="proto" aria-label="Prototype screens"><strong>Prototype</strong><a href="gate.html">Gate</a><a href="index.html">Booking</a><a href="extras.html">Extras</a><a href="booked.html" class="on">Booked</a><a href="mobile.html">Phone</a></nav>
+</body>
+</html>

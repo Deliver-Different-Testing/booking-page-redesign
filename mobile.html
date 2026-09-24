@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book a job (phone) — DFRNT booking redesign</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* On a desktop the phone screen sits in a 390px frame; on a real phone it is just the page. */
+body { background: #d9d7d3; }
+.phone { width: 390px; max-width: 100%; margin: 24px auto 90px; background: var(--dd-surface-dim); border-radius: 28px; overflow: hidden; box-shadow: 0 16px 40px rgba(13,12,44,.16); position: relative; }
+@media (max-width: 480px) { body { background: var(--dd-surface-dim); } .phone { margin: 0; border-radius: 0; box-shadow: none; } }
+.phone .topbar { padding: 0 16px; gap: 10px; }
+.mcard { padding: 18px; gap: 14px; }
+.mcard .h { font-size: 16px; line-height: 22px; }
+.phone .in, .phone .sel { height: 46px; font-size: 15px; }
+.phone .chip { height: 40px; }
+.phone .seg button { height: 40px; }
+.phone .step, .phone .step button { height: 46px; }
+.more { font-size: 13px; font-weight: 600; }
+.bar { position: sticky; bottom: 0; background: #fff; border-top: 1px solid var(--dd-outline-variant); padding: 12px 16px 20px; display: flex; align-items: center; gap: 14px; box-shadow: 0 -6px 20px rgba(13,12,44,.08); }
+</style>
+</head>
+<body>
+<div class="phone">
+  <header class="topbar">
+    <div class="brand"><div class="brand-mark" style="width: 26px; height: 26px; border-radius: 7px"></div><span class="brand-name">DFRNT</span><span class="brand-app">Booking</span></div>
+    <button type="button" aria-label="Menu" style="margin-left: auto; width: 40px; height: 40px; border: 0; background: transparent; color: var(--dd-on-ink)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg></button>
+  </header>
+
+  <div style="background: #fff; border-bottom: 1px solid var(--dd-outline-variant); padding: 10px 16px; display: flex; align-items: center; gap: 8px; font-size: 13px">
+    <span style="color: var(--dd-secondary)">Booking as</span><span style="font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">Acme Distribution · Jane</span><a href="gate.html" style="margin-left: auto; font-weight: 600">Change</a>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 12px; padding: 16px">
+    <div style="display: flex; gap: 8px"><select class="sel" style="height: 40px; font-size: 13px; flex-grow: 1" aria-label="Saved booking"><option>Load a saved booking…</option></select><button type="button" class="chip" style="height: 40px">Reset</button></div>
+
+    <section class="card mcard">
+      <h2 class="h">Pick up from</h2>
+      <div class="field"><label class="lbl req" for="mfrom">Address</label><input id="mfrom" class="in" value="12 Carbine Road, Mount Wellington"><span class="hint">Acme Distribution Ltd · <a href="#">Edit company</a></span></div>
+      <div class="field"><label class="lbl req" for="mfc">Contact name</label><input id="mfc" class="in" value="Jane Patel"></div>
+      <div class="field"><label class="lbl" for="mfp">Contact phone</label><input id="mfp" class="in" placeholder="021 000 0000"></div>
+      <a href="#" class="more">+ Unit, building or driver notes</a>
+    </section>
+
+    <div class="swap" style="padding: 0 12px; margin: -6px 0"><div class="line" style="background: var(--dd-outline)"></div><button type="button" class="icn" style="width: 44px; height: 44px" aria-label="Swap addresses"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></button><div class="line" style="background: var(--dd-outline)"></div></div>
+
+    <section class="card mcard">
+      <h2 class="h">Deliver to</h2>
+      <div class="field"><label class="lbl req" for="mto">Address</label><input id="mto" class="in" value="Auckland City Hospital, Grafton"><span class="tag" style="align-self: flex-start">ADDRESS BOOK · ACH-01</span></div>
+      <div class="field"><label class="lbl" for="mtx">Unit, floor or building</label><input id="mtx" class="in" value="Level 4, Pathology reception"></div>
+      <div class="field"><label class="lbl" for="mleave">If no one can sign</label><select id="mleave" class="sel"><option>Signature required</option><option>Leave at front door</option><option>Leave in a safe place</option></select></div>
+      <a href="#" class="more">+ Contact, phone or driver notes</a>
+    </section>
+
+    <section class="card mcard">
+      <h2 class="h">Package</h2>
+      <div class="field"><span class="lbl req">Vehicle</span><div class="chips"><button type="button" class="chip">Bike</button><button type="button" class="chip">Car</button><button type="button" class="chip on">Van</button><button type="button" class="chip">Truck</button><button type="button" class="chip">More…</button></div></div>
+      <div class="seg"><button type="button" class="on">Preset size</button><button type="button">Dimensions</button></div>
+      <div class="field"><label class="lbl req" for="msize">Package size</label><select id="msize" class="sel"><option>Banana box · 50 × 40 × 25 cm · 10 kg</option></select></div>
+      <div class="two" style="gap: 12px">
+        <div class="field"><span class="lbl">Quantity</span><div class="step"><button type="button" aria-label="Fewer">−</button><span>2</span><button type="button" aria-label="More">+</button></div></div>
+        <div class="field"><label class="lbl" for="mwt">Total weight</label><div class="suffix"><input id="mwt" class="in" value="20" style="padding-right: 36px"><span style="top: 14px">kg</span></div></div>
+      </div>
+      <label class="chk"><input type="checkbox"> Contains dangerous goods</label>
+    </section>
+
+    <section class="card mcard">
+      <h2 class="h">When</h2>
+      <div class="seg"><button type="button" class="on">Ready now</button><button type="button">Schedule</button><button type="button">Recurring</button></div>
+      <label class="chk"><input type="checkbox"> Put on hold until I mark it ready</label>
+    </section>
+
+    <section class="card mcard">
+      <h2 class="h">Tracking and references</h2>
+      <div class="field"><span class="lbl">Notify the recipient by</span><div class="chips"><button type="button" class="chip">Website</button><button type="button" class="chip">Email</button><button type="button" class="chip">Text</button><button type="button" class="chip on">Email and text</button></div></div>
+      <div class="field"><label class="lbl req" for="mte">Tracking email</label><input id="mte" class="in" placeholder="name@example.com"></div>
+      <div class="field"><label class="lbl req" for="mtm">Tracking mobile</label><input id="mtm" class="in" placeholder="021 000 0000"></div>
+      <div class="field"><label class="lbl req" for="mra">PO number</label><select id="mra" class="sel"><option>Select…</option><option>PO-88213</option></select></div>
+      <a href="#" class="more">+ Cost centre or notes for your records</a>
+    </section>
+
+    <section class="card mcard">
+      <div class="row-between" style="align-items: baseline"><h2 class="h">Service</h2><span class="hint">Van · excl. GST</span></div>
+      <button type="button" class="svc on"><div class="svc-body"><div class="svc-top"><span class="svc-name">Urgent Today</span><span class="svc-price">$18.50</span></div><span class="svc-desc">Picked up within the hour, delivered today</span><span class="avail ok"><span class="dot"></span>Available now</span></div></button>
+      <button type="button" class="svc"><div class="svc-body"><div class="svc-top"><span class="svc-name">Economy</span><span class="svc-price">$12.40</span></div><span class="svc-desc">Next economy run leaves 2:30 pm</span><span class="avail slow"><span class="dot"></span>May take up to 45 min longer</span></div></button>
+      <button type="button" class="svc"><div class="svc-body"><div class="svc-top"><span class="svc-name">Direct Drive</span><span class="svc-price">$42.00</span></div><span class="svc-desc">Straight there, no other stops</span><span class="avail ok"><span class="dot"></span>Available now</span></div></button>
+      <div class="extras" style="padding: 10px 12px"><span style="font-size: 13px"><strong>Extras</strong> · Residential delivery $6.50</span><a href="extras.html" style="font-size: 13px; font-weight: 600">Edit</a></div>
+    </section>
+  </div>
+
+  <div class="bar">
+    <div style="display: flex; flex-direction: column"><span class="hint">Total incl. GST</span><span style="font-size: 20px; font-weight: 800">$28.75</span></div>
+    <a href="booked.html" class="cta" style="flex-grow: 1; width: auto">Book job</a>
+  </div>
+</div>
+
+<nav class="proto" aria-label="Prototype screens"><strong>Prototype</strong><a href="gate.html">Gate</a><a href="index.html">Booking</a><a href="extras.html">Extras</a><a href="booked.html">Booked</a><a href="mobile.html" class="on">Phone</a></nav>
+<script>
+document.querySelectorAll('.chips').forEach((g) => g.querySelectorAll('.chip').forEach((b) => b.addEventListener('click', () => { g.querySelectorAll('.chip').forEach((x) => x.classList.remove('on')); b.classList.add('on'); })));
+document.querySelectorAll('.seg').forEach((g) => g.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => { g.querySelectorAll('button').forEach((x) => x.classList.remove('on')); b.classList.add('on'); })));
+document.querySelectorAll('.svc').forEach((b) => b.addEventListener('click', () => { document.querySelectorAll('.svc').forEach((x) => x.classList.remove('on')); b.classList.add('on'); }));
+</script>
+</body>
+</html>

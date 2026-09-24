@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Who are you booking for — DFRNT booking redesign</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+.res { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; font-size: 14px; cursor: pointer; border-radius: 8px; gap: 12px; }
+.res:hover { background: var(--dd-surface-variant); }
+.res.on { background: var(--dd-primary-container); }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><div class="brand-mark"></div><span class="brand-name">DFRNT</span><span class="brand-app">Booking</span></div>
+  <nav class="nav"><a href="index.html" class="on">Book a job</a><a href="#">Job list</a><a href="#">Settings</a></nav>
+  <a href="#" class="hublink">DFRNT Hub</a>
+</header>
+
+<main class="page" style="padding-top: 72px">
+  <div style="width: 100%; max-width: 560px; display: flex; flex-direction: column; gap: 16px">
+    <div style="display: flex; flex-direction: column; gap: 6px; padding: 0 8px">
+      <h1 style="margin: 0; font-size: 28px; font-weight: 800; line-height: 36px">Who are you booking for?</h1>
+      <span style="font-size: 14px; color: var(--dd-text-2)">Staff see this once per session. Customers with one account skip straight to the form.</span>
+    </div>
+
+    <div class="card" style="padding: 32px; gap: 20px">
+      <div class="field">
+        <label class="lbl req" for="client">Client</label>
+        <div class="with-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input id="client" class="in" value="acm">
+        </div>
+        <div style="border: 1px solid var(--dd-outline); border-radius: 10px; padding: 6px; display: flex; flex-direction: column; gap: 2px; background: #fff; box-shadow: 0 6px 20px rgba(13,12,44,.10)">
+          <div class="res on"><span><strong>Acme Distribution Ltd</strong> <span class="hint">· ACM-1042</span></span><span class="hint">Mt Wellington</span></div>
+          <div class="res"><span><strong>Acme Medical Supplies</strong> <span class="hint">· ACM-2210</span></span><span class="hint">Penrose</span></div>
+          <div class="res"><span><strong>Acmar Freight</strong> <span class="hint">· ACR-0071</span></span><span class="hint">Wiri</span></div>
+        </div>
+      </div>
+
+      <div class="two">
+        <div class="field"><label class="lbl req" for="user">Booking user</label><select id="user" class="sel"><option>Jane Patel – Dispatch coordinator</option><option>Mark Ngata – Warehouse lead</option><option>Priya Shah – Accounts</option></select></div>
+        <div class="field"><label class="lbl" for="tpl">Start from a saved booking</label><select id="tpl" class="sel"><option>Blank booking</option><option>Weekly lab run – Mon/Wed/Fri</option><option>Head office → Warehouse</option></select></div>
+      </div>
+
+      <div style="display: flex; gap: 8px; flex-wrap: wrap"><a href="#" class="ghost">Edit client settings</a><a href="#" class="ghost">Add or edit users</a></div>
+
+      <a href="index.html" class="cta">Continue to booking</a>
+    </div>
+
+    <div class="note">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#b45a0a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span>Cash or phone bookings go on the <strong>CRECI – Credit Card Internal</strong> account. That account asks for the payer's name, mobile and email here instead of a booking user.</span>
+    </div>
+  </div>
+</main>
+
+<nav class="proto" aria-label="Prototype screens"><strong>Prototype</strong><a href="gate.html" class="on">Gate</a><a href="index.html">Booking</a><a href="extras.html">Extras</a><a href="booked.html">Booked</a><a href="mobile.html">Phone</a></nav>
+<script>
+document.querySelectorAll('.res').forEach((r) => r.addEventListener('click', () => { document.querySelectorAll('.res').forEach((x) => x.classList.remove('on')); r.classList.add('on'); }));
+</script>
+</body>
+</html>
