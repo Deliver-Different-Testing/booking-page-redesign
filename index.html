@@ -310,10 +310,10 @@
 
   // ----- left menu -----
   const side = $('#side');
-  const setSide = (closed) => { side.classList.toggle('closed', closed); try { localStorage.setItem('side', closed ? 'closed' : 'open'); } catch (e) {} };
+  const setSide = (closed, persist) => { side.classList.toggle('closed', closed); if (persist) { try { localStorage.setItem('side', closed ? 'closed' : 'open'); } catch (e) {} } };
   let pref = null; try { pref = localStorage.getItem('side'); } catch (e) {}
-  setSide(pref ? pref === 'closed' : innerWidth < 1280);
-  $('#side-toggle').addEventListener('click', () => setSide(!side.classList.contains('closed')));
+  setSide(pref ? pref === 'closed' : innerWidth < 1280, false);
+  $('#side-toggle').addEventListener('click', () => setSide(!side.classList.contains('closed'), true));
   $('#mobile-menu').addEventListener('click', () => { side.style.display = side.style.display === 'flex' ? '' : 'flex'; side.classList.remove('closed'); });
 
   // ----- route -----
