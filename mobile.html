@@ -6,7 +6,7 @@
 <title>Book a job (phone) — DFRNT booking redesign</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=6">
+<link rel="stylesheet" href="styles.css?v=7">
 <style>
 /* On a desktop the phone screen sits in a 390px frame; on a real phone it is just the page. */
 body { background: #d9d7d3; }
@@ -25,6 +25,26 @@ body { background: #d9d7d3; }
 </head>
 <body>
 <div class="phone">
+<div id="drawer" class="hidden" style="position: absolute; inset: 0; z-index: 40; background: rgba(13,12,44,.45)"><aside class="side" style="position: absolute; left: 0; top: 0; bottom: 0; height: auto; width: 260px">
+  <div class="side-top">
+    <div class="brand"><div class="brand-mark"></div><span class="brand-name">DFRNT</span></div>
+    <button type="button" class="side-toggle" id="drawer-close" aria-label="Close menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg></button>
+  </div>
+  <nav class="side-nav" aria-label="Main">
+    <a href="#" class="side-item" title="DFRNT Hub"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span class="side-label">DFRNT Hub</span></a>
+    <span class="side-sec">Booking</span>
+    <a href="index.html" class="side-item on" title="Book a job"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg><span class="side-label">Book a job</span></a>
+    <a href="#" class="side-item" title="Job list"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg><span class="side-label">Job list</span></a>
+    <a href="#" class="side-item" title="Tracking"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg><span class="side-label">Tracking</span></a>
+    <a href="#" class="side-item" title="Reporting"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg><span class="side-label">Reporting</span></a>
+    <span class="side-sec">Integrations</span>
+    <a href="#" class="side-item" title="MCP and API access"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a6 6 0 0 1-12 0V8z"/></svg><span class="side-label">MCP and API access</span></a>
+    <span class="side-sec">This app</span>
+    <a href="#" class="side-item" title="Setup"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg><span class="side-label">Setup</span></a>
+  </nav>
+  <div class="side-foot"><span class="hint side-label" style="color: rgba(244,242,241,.55)">Setup is this app's own settings. Settings for your whole account live in the Hub.</span></div>
+</aside>
+</div>
   <header class="topbar">
     <div class="brand"><div class="brand-mark" style="width: 26px; height: 26px; border-radius: 7px"></div><span class="brand-name">DFRNT</span><span class="brand-app">Booking</span></div>
     <button type="button" aria-label="Menu" style="margin-left: auto; width: 40px; height: 40px; border: 0; background: transparent; color: var(--dd-on-ink)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg></button>
@@ -108,6 +128,9 @@ body { background: #d9d7d3; }
 document.querySelectorAll('.chips').forEach((g) => g.querySelectorAll('.chip').forEach((b) => b.addEventListener('click', () => { g.querySelectorAll('.chip').forEach((x) => x.classList.remove('on')); b.classList.add('on'); })));
 document.querySelectorAll('.seg').forEach((g) => g.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => { g.querySelectorAll('button').forEach((x) => x.classList.remove('on')); b.classList.add('on'); })));
 document.querySelectorAll('.svc').forEach((b) => b.addEventListener('click', () => { document.querySelectorAll('.svc').forEach((x) => x.classList.remove('on')); b.classList.add('on'); }));
+</script>
+<script>
+(function(){var d=document.getElementById('drawer');document.querySelector('[aria-label="Menu"]').addEventListener('click',function(){d.classList.remove('hidden')});document.getElementById('drawer-close').addEventListener('click',function(){d.classList.add('hidden')});d.addEventListener('click',function(e){if(e.target===d)d.classList.add('hidden')});})();
 </script>
 </body>
 </html>

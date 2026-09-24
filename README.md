@@ -8,7 +8,7 @@ Plain HTML, CSS and a little JavaScript. No build step. Colours, type and radii 
 | Page | What it shows |
 |---|---|
 | `gate.html` | "Who are you booking for?" — the staff gate, one card |
-| `index.html` | The booking form (desktop). Addresses side by side and collapsed until clicked; extras sit inline under the selected service; vehicle, dimensions, dangerous goods, when, tracking and service selection all work |
+| `index.html` | The booking form (desktop). Left expandable menu; addresses side by side and collapsed until clicked; vehicle worked out from the package; services run wide with the price breakdown and extras (collapsed) under the chosen one; When and a searchable mini job list live in the right rail |
 | `booked.html` | Confirmation with labels, tracking and follow-ups |
 | `mobile.html` | The same form at phone width with a pinned total and Book button |
 
