@@ -6,7 +6,7 @@
 <title>Book a job — DFRNT booking redesign</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=7">
+<link rel="stylesheet" href="styles.css?v=8">
 </head>
 <body>
 <div class="shell">
@@ -97,9 +97,38 @@
           </div>
         </section>
 
-        <!-- PACKAGE: vehicle is worked out from the package; a choice only appears when there is one -->
+        <!-- WHEN -->
         <section class="card">
-          <h2 class="h">Package</h2>
+          <div class="row-between"><h2 class="h">When</h2><span class="hint">Auckland (NZST)</span></div>
+          <div class="when-row"><div class="seg" id="when" style="max-width: 420px; flex-grow: 1"><button type="button" class="on" data-when="now">Ready now</button><button type="button" data-when="sch">Schedule</button><button type="button" data-when="rec">Recurring</button></div>
+          <label class="chk" style="font-size: 13px; white-space: nowrap"><input type="checkbox" id="hold"> Put on hold until I mark it ready</label></div>
+          <div id="w-now"><span class="hint" style="font-size: 13px">Pick up as soon as possible, deliver as fast as the chosen service allows.</span></div>
+          <div id="w-sch" class="hidden" style="display: flex; flex-direction: column; gap: 12px">
+            <div class="three-eq"><div class="field"><label class="lbl req" for="rd">Ready date</label><input id="rd" class="in" type="date" value="2026-09-25"></div><div class="field"><label class="lbl req" for="rt">Ready time</label><input id="rt" class="in" type="time" value="09:30"></div></div>
+            <label class="chk" style="font-size: 13px"><input type="checkbox" id="dby"> Set a deliver-by deadline</label>
+            <div id="dbybox" class="three-eq hidden"><div class="field"><label class="lbl req" for="dd">Deliver by date</label><input id="dd" class="in" type="date" value="2026-09-25"></div><div class="field"><label class="lbl req" for="dt">Deliver by time</label><input id="dt" class="in" type="time" value="14:00"></div></div>
+          </div>
+          <div id="w-rec" class="hidden" style="display: flex; flex-direction: column; gap: 12px">
+            <div class="field"><span class="lbl req">Repeat on</span><div class="chips" id="days"><button type="button" class="chip on">Mon</button><button type="button" class="chip">Tue</button><button type="button" class="chip on">Wed</button><button type="button" class="chip">Thu</button><button type="button" class="chip on">Fri</button><button type="button" class="chip">Sat</button><button type="button" class="chip">Sun</button></div></div>
+            <div class="three-eq"><div class="field"><label class="lbl req" for="rf">Frequency</label><select id="rf" class="sel"><option>Weekly</option><option>Fortnightly</option><option>First of the month</option><option>Last workday of the month</option></select></div><div class="field"><label class="lbl req" for="rrt">Ready time</label><input id="rrt" class="in" type="time" value="09:30"></div></div>
+            <div class="field"><label class="lbl" for="rh">On public holidays</label><select id="rh" class="sel"><option>Don't book</option><option>Deliver next day</option><option>Book anyway</option></select></div>
+            <div class="field"><label class="lbl" for="rn">Name this schedule</label><input id="rn" class="in" placeholder="Optional"></div>
+            <span class="hint">Schedules start tomorrow. Book a normal job as well if you need one today.</span>
+          </div>
+        </section>
+
+        <!-- PACKAGE: vehicle is worked out from the package; a choice only appears when there is one -->
+        <section class="card compact">
+          <div class="pkg-top">
+            <h2 class="h">Package</h2>
+            <div class="seg" id="mode" style="width: 240px"><button type="button" class="on" data-mode="std">Preset size</button><button type="button" data-mode="cus">Dimensions</button></div>
+            <div class="veh-pick">
+              <span class="lbl">Vehicle</span>
+              <div class="chips" id="vehicles"></div>
+              <span class="hint" id="veh-why">chosen from the package size</span>
+            </div>
+          </div>
+
           <div id="std" class="pkg-row">
             <div class="field"><label class="lbl req" for="size">Package size</label>
               <select id="size" class="sel">
@@ -111,32 +140,19 @@
             </div>
             <div class="field"><span class="lbl">Quantity</span><div class="step"><button type="button" aria-label="Fewer" id="qdn">−</button><span id="qty">2</span><button type="button" aria-label="More" id="qup">+</button></div></div>
             <div class="field"><label class="lbl" for="wt">Total weight</label><div class="suffix"><input id="wt" class="in" value="20" style="padding-right: 40px"><span>kg</span></div></div>
+            <label class="chk dgchk"><input type="checkbox" id="dg"> Dangerous goods</label>
           </div>
 
-          <div id="cus" class="hidden" style="display: flex; flex-direction: column; gap: 10px">
-            <div style="overflow-x: auto"><div style="min-width: 600px; display: flex; flex-direction: column; gap: 8px">
-              <div style="display: grid; grid-template-columns: 1fr 80px 80px 80px 100px 70px 36px; gap: 8px; padding: 0 4px"><span class="hint">Item</span><span class="hint">L cm</span><span class="hint">W cm</span><span class="hint">H cm</span><span class="hint">Weight kg</span><span class="hint">Qty</span><span></span></div>
-              <div style="display: grid; grid-template-columns: 1fr 80px 80px 80px 100px 70px 36px; gap: 8px; align-items: center"><select class="sel" aria-label="Item type"><option>Carton</option><option>Chilly bin</option><option>Specimen bag</option><option>Pallet</option></select><input class="in" aria-label="Length" value="60"><input class="in" aria-label="Width" value="40"><input class="in" aria-label="Height" value="30"><input class="in" aria-label="Weight" value="8"><input class="in" aria-label="Quantity" value="2"><button type="button" class="icn" aria-label="Remove item" style="width: 36px; height: 36px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div>
-              <div style="display: grid; grid-template-columns: 1fr 80px 80px 80px 100px 70px 36px; gap: 8px; align-items: center"><select class="sel" aria-label="Item type"><option>Chilly bin</option><option>Carton</option></select><input class="in" aria-label="Length" value="45"><input class="in" aria-label="Width" value="30"><input class="in" aria-label="Height" value="30"><input class="in" aria-label="Weight" value="5"><input class="in" aria-label="Quantity" value="1"><button type="button" class="icn" aria-label="Remove item" style="width: 36px; height: 36px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div>
+          <div id="cus" class="hidden" style="display: flex; flex-direction: column; gap: 8px">
+            <div style="overflow-x: auto"><div style="min-width: 600px; display: flex; flex-direction: column; gap: 6px">
+              <div class="dimrow head"><span class="hint">Item</span><span class="hint">L cm</span><span class="hint">W cm</span><span class="hint">H cm</span><span class="hint">Weight kg</span><span class="hint">Qty</span><span></span></div>
+              <div class="dimrow"><select class="sel" aria-label="Item type"><option>Carton</option><option>Chilly bin</option><option>Specimen bag</option><option>Pallet</option></select><input class="in" aria-label="Length" value="60"><input class="in" aria-label="Width" value="40"><input class="in" aria-label="Height" value="30"><input class="in" aria-label="Weight" value="8"><input class="in" aria-label="Quantity" value="2"><button type="button" class="icn" aria-label="Remove item" style="width: 32px; height: 32px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div>
+              <div class="dimrow"><select class="sel" aria-label="Item type"><option>Chilly bin</option><option>Carton</option></select><input class="in" aria-label="Length" value="45"><input class="in" aria-label="Width" value="30"><input class="in" aria-label="Height" value="30"><input class="in" aria-label="Weight" value="5"><input class="in" aria-label="Quantity" value="1"><button type="button" class="icn" aria-label="Remove item" style="width: 32px; height: 32px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div>
             </div></div>
-            <div class="row-between" style="flex-wrap: wrap">
-              <div style="display: flex; gap: 8px"><button type="button" class="ghost">+ Add item</button><button type="button" class="ghost">+ Add a preset size</button></div>
-              <div style="display: flex; align-items: center; gap: 12px"><span class="hint">Dimensions are</span><div class="seg" style="width: 180px" id="dims"><button type="button" class="on">Per item</button><button type="button">Whole job</button></div></div>
+            <div class="row-between" style="flex-wrap: wrap; gap: 8px">
+              <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap"><button type="button" class="ghost" style="height: 32px">+ Add item</button><button type="button" class="ghost" style="height: 32px">+ Add a preset size</button><label class="chk" style="font-size: 13px; margin-left: 8px"><input type="checkbox" id="dg2"> Dangerous goods</label></div>
+              <div style="display: flex; align-items: center; gap: 10px"><span class="hint">Dimensions are</span><div class="seg" style="width: 170px" id="dims"><button type="button" class="on">Per item</button><button type="button">Whole job</button></div><span class="hint">Total <strong style="color: var(--dd-ink)">3 items · 21 kg · 0.184 m³</strong></span></div>
             </div>
-            <div style="font-size: 13px; color: var(--dd-secondary)">Total <strong style="color: var(--dd-ink)">3 items · 21 kg · 0.184 m³</strong></div>
-          </div>
-
-          <div class="veh-line">
-            <span class="hint">Vehicle:</span>
-            <strong id="veh">Van</strong>
-            <span class="hint" id="veh-why">chosen from the package size</span>
-            <button type="button" class="link" id="veh-change">Change</button>
-          </div>
-          <div class="chips hidden" id="vehicles"></div>
-
-          <div class="pkg-more">
-            <button type="button" class="link" id="mode-toggle">Enter dimensions instead</button>
-            <label class="chk" style="font-size: 13px"><input type="checkbox" id="dg"> Contains dangerous goods</label>
           </div>
 
           <div id="dgbox" class="disc hidden">
@@ -148,9 +164,7 @@
           </div>
 
           <div id="truck" class="disc hidden">
-            <span class="lbl">Truck details</span>
-            <div style="display: flex; gap: 20px; flex-wrap: wrap"><label class="chk"><input type="checkbox"> Tail lift at pick up</label><label class="chk"><input type="checkbox"> Tail lift at delivery</label></div>
-            <div style="display: flex; align-items: center; gap: 12px"><span class="lbl req">Delivering to a</span><div class="seg" style="width: 220px" id="dest"><button type="button" class="on">Business</button><button type="button">Residence</button></div></div>
+            <div style="display: flex; gap: 20px; flex-wrap: wrap; align-items: center"><span class="lbl">Truck details</span><label class="chk"><input type="checkbox"> Tail lift at pick up</label><label class="chk"><input type="checkbox"> Tail lift at delivery</label><span class="lbl req" style="margin-left: auto">Delivering to a</span><div class="seg" style="width: 200px" id="dest"><button type="button" class="on">Business</button><button type="button">Residence</button></div></div>
           </div>
         </section>
 
@@ -262,25 +276,6 @@
           <div class="mapfoot"><span style="color: var(--dd-secondary)">Route</span><span style="font-weight: 600">11.2 km · about 22 min</span></div>
         </div>
 
-        <!-- WHEN -->
-        <section class="card">
-          <div class="row-between"><h2 class="h" style="font-size: 15px">When</h2><span class="hint">Auckland (NZST)</span></div>
-          <div class="seg" id="when"><button type="button" class="on" data-when="now">Ready now</button><button type="button" data-when="sch">Schedule</button><button type="button" data-when="rec">Recurring</button></div>
-          <div id="w-now"><span class="hint" style="font-size: 13px">Pick up as soon as possible, deliver as fast as the chosen service allows.</span></div>
-          <div id="w-sch" class="hidden" style="display: flex; flex-direction: column; gap: 12px">
-            <div class="two" style="gap: 10px"><div class="field"><label class="lbl req" for="rd">Ready date</label><input id="rd" class="in" type="date" value="2026-09-25"></div><div class="field"><label class="lbl req" for="rt">Ready time</label><input id="rt" class="in" type="time" value="09:30"></div></div>
-            <label class="chk" style="font-size: 13px"><input type="checkbox" id="dby"> Set a deliver-by deadline</label>
-            <div id="dbybox" class="two hidden" style="gap: 10px"><div class="field"><label class="lbl req" for="dd">Deliver by date</label><input id="dd" class="in" type="date" value="2026-09-25"></div><div class="field"><label class="lbl req" for="dt">Deliver by time</label><input id="dt" class="in" type="time" value="14:00"></div></div>
-          </div>
-          <div id="w-rec" class="hidden" style="display: flex; flex-direction: column; gap: 12px">
-            <div class="field"><span class="lbl req">Repeat on</span><div class="chips" id="days"><button type="button" class="chip on">Mon</button><button type="button" class="chip">Tue</button><button type="button" class="chip on">Wed</button><button type="button" class="chip">Thu</button><button type="button" class="chip on">Fri</button><button type="button" class="chip">Sat</button><button type="button" class="chip">Sun</button></div></div>
-            <div class="two" style="gap: 10px"><div class="field"><label class="lbl req" for="rf">Frequency</label><select id="rf" class="sel"><option>Weekly</option><option>Fortnightly</option><option>First of the month</option><option>Last workday of the month</option></select></div><div class="field"><label class="lbl req" for="rrt">Ready time</label><input id="rrt" class="in" type="time" value="09:30"></div></div>
-            <div class="field"><label class="lbl" for="rh">On public holidays</label><select id="rh" class="sel"><option>Don't book</option><option>Deliver next day</option><option>Book anyway</option></select></div>
-            <div class="field"><label class="lbl" for="rn">Name this schedule</label><input id="rn" class="in" placeholder="Optional"></div>
-            <span class="hint">Schedules start tomorrow. Book a normal job as well if you need one today.</span>
-          </div>
-          <label class="chk" style="font-size: 13px"><input type="checkbox" id="hold"> Put on hold until I mark it ready</label>
-        </section>
 
         <!-- SUMMARY + BOOK -->
         <section class="card summary" style="gap: 10px">
@@ -336,36 +331,39 @@
     show(body, open); card.classList.toggle('open', open); t.setAttribute('aria-expanded', open);
   }));
 
-  // ----- package → vehicle -----
+  // ----- package → vehicle (only the vehicles that make sense for this package are offered) -----
   const rules = {
     satchel: { pick: 'Bike', why: 'small enough for a bike', options: ['Bike', 'Car', 'Van'] },
     banana:  { pick: 'Van', why: 'chosen from the package size', options: ['Car', 'Van', 'Transit'] },
     tyre:    { pick: 'Van', why: 'chosen from the package size', options: ['Van', 'Transit'] },
-    pallet:  { pick: 'Truck', why: 'pallets always go by truck', options: [] },
+    pallet:  { pick: 'Truck', why: 'pallets always go by truck', options: ['Truck'] },
     custom:  { pick: 'Van', why: 'chosen from your dimensions', options: ['Car', 'Van', 'Transit', 'Truck'] }
   };
   let vehicle = 'Van', custom = false;
   const applyVehicle = (v) => {
-    vehicle = v; $('#veh').textContent = v; $('#veh2').textContent = v; show($('#truck'), /truck/i.test(v));
+    vehicle = v; $('#veh2').textContent = v; show($('#truck'), /truck/i.test(v));
     $$('#vehicles .chip').forEach((c) => c.classList.toggle('on', c.textContent === v));
   };
   const deriveVehicle = () => {
     const r = rules[custom ? 'custom' : $('#size').value];
-    $('#veh-why').textContent = r.why;
+    $('#veh-why').textContent = r.options.length > 1 ? r.why + ' · change it if you need to' : r.why;
     const box = $('#vehicles'); box.innerHTML = '';
-    r.options.forEach((name) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = name; b.addEventListener('click', () => applyVehicle(name)); box.appendChild(b); });
-    show($('#veh-change'), r.options.length > 1); show(box, false); $('#veh-change').textContent = 'Change';
+    r.options.forEach((name) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'chip sm'; b.textContent = name; if (r.options.length === 1) { b.disabled = true; b.classList.add('locked'); } b.addEventListener('click', () => applyVehicle(name)); box.appendChild(b); });
     applyVehicle(r.pick);
   };
-  $('#veh-change').addEventListener('click', () => { const open = $('#vehicles').classList.contains('hidden'); show($('#vehicles'), open); $('#veh-change').textContent = open ? 'Done' : 'Change'; });
   $('#size').addEventListener('change', () => { deriveVehicle(); recalc(); });
-  $('#mode-toggle').addEventListener('click', () => { custom = !custom; show($('#std'), !custom); show($('#cus'), custom); $('#mode-toggle').textContent = custom ? 'Use a preset size instead' : 'Enter dimensions instead'; deriveVehicle(); recalc(); });
+  $$('#mode button').forEach((b) => b.addEventListener('click', () => {
+    $$('#mode button').forEach((x) => x.classList.remove('on')); b.classList.add('on');
+    custom = b.dataset.mode === 'cus'; show($('#std'), !custom); show($('#cus'), custom); deriveVehicle(); recalc();
+  }));
   ['#dims', '#dest'].forEach((sel) => $$(sel + ' button').forEach((b) => b.addEventListener('click', () => { $$(sel + ' button').forEach((x) => x.classList.remove('on')); b.classList.add('on'); })));
   let qty = 2;
   const setQty = (n) => { qty = Math.max(1, Math.min(999, n)); $('#qty').textContent = qty; $('#wt').value = qty * 10; recalc(); };
   $('#qup').addEventListener('click', () => setQty(qty + 1));
   $('#qdn').addEventListener('click', () => setQty(qty - 1));
-  $('#dg').addEventListener('change', (e) => show($('#dgbox'), e.target.checked));
+  const dgSync = (on) => { $('#dg').checked = on; $('#dg2').checked = on; show($('#dgbox'), on); };
+  $('#dg').addEventListener('change', (e) => dgSync(e.target.checked));
+  $('#dg2').addEventListener('change', (e) => dgSync(e.target.checked));
   $('#dgc').addEventListener('change', (e) => show($('#dry'), e.target.value === '9'));
 
   // ----- when -----
